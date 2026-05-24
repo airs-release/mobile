@@ -1217,6 +1217,172 @@
       </div>
     </section>
 
+    <section class="section" id="new-features" aria-labelledby="new-features-title">
+      <h2 id="new-features-title">신규 기능 회의 정리</h2>
+      <p class="section-subtitle">
+        2026-05-24 팀원 회의에서 정리한 신규 기능 아이디어입니다. 기존 온습도 표시와 예측 기능을 유지하면서,
+        적외선 제어, 외부 온도 비교, 부재중 온도 보호, GPS 기반 자동 활성화로 앱 사용성을 확장하는 방향입니다.
+      </p>
+      <div class="flow">
+        <div class="flow-step">
+          <b>예측 대시보드</b>
+          <span>현재 온습도와 20분 후 예측 온도를 함께 보여주고, LCD 표시 정보를 앱에서도 확인합니다.</span>
+        </div>
+        <div class="flow-step">
+          <b>외부 온도 비교</b>
+          <span>기상청 API 기반 외부 온도와 실내 온도를 비교해 냉방 판단을 돕습니다.</span>
+        </div>
+        <div class="flow-step">
+          <b>부재중 온도 보호</b>
+          <span>mmWave 인체 감지를 활용해 사람이 없을 때 방 온도 보호 규칙을 설정합니다.</span>
+        </div>
+        <div class="flow-step">
+          <b>GPS 자동 활성화</b>
+          <span>집 근처 진입 또는 외출 상태를 감지해 에어컨 켜기/끄기 자동화를 제안합니다.</span>
+        </div>
+      </div>
+      <div class="actions">
+        <a class="button" href="new_features_ui_plan.md" target="_blank">신규 기능 MD 보기</a>
+      </div>
+    </section>
+
+    <section class="section" id="new-feature-ui" aria-labelledby="new-feature-ui-title">
+      <h2 id="new-feature-ui-title">신규 기능 UI 후보</h2>
+      <p class="section-subtitle">
+        회의 메모에서 도출한 4개 대표 화면을 기존 AIRS 밝은 테마와 로그인 대안 3개 테마에 맞춰 생성했습니다.
+        기능별로 어떤 콘셉트가 가장 자연스럽게 확장되는지 비교합니다.
+      </p>
+      <div class="comparison-list">
+        <article class="compare-set">
+          <div class="compare-head">
+            <div>
+              <h3>13 예측 대시보드</h3>
+              <p>현재 온도, 20분 후 예측, 외부 온도, LCD 표시 정보를 한 화면에서 판단할 수 있는지 비교합니다.</p>
+            </div>
+            <span class="tag">신기능</span>
+          </div>
+          <div class="compare-grid">
+            <a class="thumb" href="assets/new_features/current_bright/01_prediction_dashboard.png" target="_blank">
+              <img src="assets/new_features/current_bright/01_prediction_dashboard.png" alt="AIRS 신규 기능 현재 밝은 테마 예측 대시보드">
+              <b>현재 밝은 테마</b>
+              <span>예측 대시보드</span>
+            </a>
+            <a class="thumb" href="assets/new_features/variant_01_dark_night/01_prediction_dashboard.png" target="_blank">
+              <img src="assets/new_features/variant_01_dark_night/01_prediction_dashboard.png" alt="AIRS 신규 기능 다크 나이트 예측 대시보드">
+              <b>대안 1 다크 나이트</b>
+              <span>예측 대시보드</span>
+            </a>
+            <a class="thumb" href="assets/new_features/variant_02_fresh_card/01_prediction_dashboard.png" target="_blank">
+              <img src="assets/new_features/variant_02_fresh_card/01_prediction_dashboard.png" alt="AIRS 신규 기능 프레시 카드 예측 대시보드">
+              <b>대안 2 프레시 카드</b>
+              <span>예측 대시보드</span>
+            </a>
+            <a class="thumb" href="assets/new_features/variant_03_cozy_drawer/01_prediction_dashboard.png" target="_blank">
+              <img src="assets/new_features/variant_03_cozy_drawer/01_prediction_dashboard.png" alt="AIRS 신규 기능 코지 드로어 예측 대시보드">
+              <b>대안 3 코지 드로어</b>
+              <span>예측 대시보드</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="compare-set">
+          <div class="compare-head">
+            <div>
+              <h3>14 외부 온도 비교</h3>
+              <p>실내 온도와 외부 온도 차이를 직관적으로 보여주고, 위치 설정 흐름이 자연스러운지 비교합니다.</p>
+            </div>
+            <span class="tag">신기능</span>
+          </div>
+          <div class="compare-grid">
+            <a class="thumb" href="assets/new_features/current_bright/02_outdoor_compare.png" target="_blank">
+              <img src="assets/new_features/current_bright/02_outdoor_compare.png" alt="AIRS 신규 기능 현재 밝은 테마 외부 온도 비교">
+              <b>현재 밝은 테마</b>
+              <span>외부 온도 비교</span>
+            </a>
+            <a class="thumb" href="assets/new_features/variant_01_dark_night/02_outdoor_compare.png" target="_blank">
+              <img src="assets/new_features/variant_01_dark_night/02_outdoor_compare.png" alt="AIRS 신규 기능 다크 나이트 외부 온도 비교">
+              <b>대안 1 다크 나이트</b>
+              <span>외부 온도 비교</span>
+            </a>
+            <a class="thumb" href="assets/new_features/variant_02_fresh_card/02_outdoor_compare.png" target="_blank">
+              <img src="assets/new_features/variant_02_fresh_card/02_outdoor_compare.png" alt="AIRS 신규 기능 프레시 카드 외부 온도 비교">
+              <b>대안 2 프레시 카드</b>
+              <span>외부 온도 비교</span>
+            </a>
+            <a class="thumb" href="assets/new_features/variant_03_cozy_drawer/02_outdoor_compare.png" target="_blank">
+              <img src="assets/new_features/variant_03_cozy_drawer/02_outdoor_compare.png" alt="AIRS 신규 기능 코지 드로어 외부 온도 비교">
+              <b>대안 3 코지 드로어</b>
+              <span>외부 온도 비교</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="compare-set">
+          <div class="compare-head">
+            <div>
+              <h3>15 부재중 온도 보호</h3>
+              <p>사람 감지, 보호 기준 온도, 자동 켜기/끄기 조건이 설정 화면으로 이해되는지 비교합니다.</p>
+            </div>
+            <span class="tag">신기능</span>
+          </div>
+          <div class="compare-grid">
+            <a class="thumb" href="assets/new_features/current_bright/03_absence_protection.png" target="_blank">
+              <img src="assets/new_features/current_bright/03_absence_protection.png" alt="AIRS 신규 기능 현재 밝은 테마 부재중 온도 보호">
+              <b>현재 밝은 테마</b>
+              <span>부재중 온도 보호</span>
+            </a>
+            <a class="thumb" href="assets/new_features/variant_01_dark_night/03_absence_protection.png" target="_blank">
+              <img src="assets/new_features/variant_01_dark_night/03_absence_protection.png" alt="AIRS 신규 기능 다크 나이트 부재중 온도 보호">
+              <b>대안 1 다크 나이트</b>
+              <span>부재중 온도 보호</span>
+            </a>
+            <a class="thumb" href="assets/new_features/variant_02_fresh_card/03_absence_protection.png" target="_blank">
+              <img src="assets/new_features/variant_02_fresh_card/03_absence_protection.png" alt="AIRS 신규 기능 프레시 카드 부재중 온도 보호">
+              <b>대안 2 프레시 카드</b>
+              <span>부재중 온도 보호</span>
+            </a>
+            <a class="thumb" href="assets/new_features/variant_03_cozy_drawer/03_absence_protection.png" target="_blank">
+              <img src="assets/new_features/variant_03_cozy_drawer/03_absence_protection.png" alt="AIRS 신규 기능 코지 드로어 부재중 온도 보호">
+              <b>대안 3 코지 드로어</b>
+              <span>부재중 온도 보호</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="compare-set">
+          <div class="compare-head">
+            <div>
+              <h3>16 GPS 자동 활성화</h3>
+              <p>집 근처 자동 켜기, 외출 시 끄기 알림, 이동 거리 설정이 자동화 화면으로 자연스러운지 비교합니다.</p>
+            </div>
+            <span class="tag">신기능</span>
+          </div>
+          <div class="compare-grid">
+            <a class="thumb" href="assets/new_features/current_bright/04_gps_automation.png" target="_blank">
+              <img src="assets/new_features/current_bright/04_gps_automation.png" alt="AIRS 신규 기능 현재 밝은 테마 GPS 자동 활성화">
+              <b>현재 밝은 테마</b>
+              <span>GPS 자동 활성화</span>
+            </a>
+            <a class="thumb" href="assets/new_features/variant_01_dark_night/04_gps_automation.png" target="_blank">
+              <img src="assets/new_features/variant_01_dark_night/04_gps_automation.png" alt="AIRS 신규 기능 다크 나이트 GPS 자동 활성화">
+              <b>대안 1 다크 나이트</b>
+              <span>GPS 자동 활성화</span>
+            </a>
+            <a class="thumb" href="assets/new_features/variant_02_fresh_card/04_gps_automation.png" target="_blank">
+              <img src="assets/new_features/variant_02_fresh_card/04_gps_automation.png" alt="AIRS 신규 기능 프레시 카드 GPS 자동 활성화">
+              <b>대안 2 프레시 카드</b>
+              <span>GPS 자동 활성화</span>
+            </a>
+            <a class="thumb" href="assets/new_features/variant_03_cozy_drawer/04_gps_automation.png" target="_blank">
+              <img src="assets/new_features/variant_03_cozy_drawer/04_gps_automation.png" alt="AIRS 신규 기능 코지 드로어 GPS 자동 활성화">
+              <b>대안 3 코지 드로어</b>
+              <span>GPS 자동 활성화</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <section class="section" aria-labelledby="temperature-title">
       <h2 id="temperature-title">온도 조절 페이지 대안</h2>
       <p class="section-subtitle">
