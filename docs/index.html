@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AIRS Mobile UI Reference</title>
+  <title>AIRS App UI Share Board</title>
   <style>
     :root {
       --bg: #f5f8fb;
@@ -55,7 +55,6 @@
 
     .intro,
     .side-card,
-    .embed-card,
     .section {
       background: rgba(255, 255, 255, 0.86);
       border: 1px solid rgba(220, 230, 239, 0.9);
@@ -184,48 +183,20 @@
       color: #405168;
     }
 
-    .embed-card {
-      overflow: hidden;
+    .section {
+      padding: 24px;
       margin-bottom: 28px;
     }
 
-    .embed-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 18px 22px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .embed-head h2,
     .section h2 {
       margin: 0;
       font-size: 22px;
       letter-spacing: 0;
     }
 
-    .embed-wrap {
-      height: min(72vh, 760px);
-      min-height: 520px;
-      background: #f1f5f9;
-    }
-
-    iframe {
-      display: block;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .section {
-      padding: 24px;
-      margin-bottom: 28px;
-    }
-
     .flow {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 12px;
       margin-top: 18px;
     }
@@ -242,14 +213,16 @@
       margin-bottom: 4px;
     }
 
-    .logic-flow {
+    .logic-flow,
+    .feature-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
       margin-top: 20px;
     }
 
-    .logic-card {
+    .logic-card,
+    .feature-card {
       display: grid;
       grid-template-columns: auto 1fr;
       gap: 14px;
@@ -271,12 +244,14 @@
       font-weight: 900;
     }
 
-    .logic-card h3 {
+    .logic-card h3,
+    .feature-card h3 {
       margin: 0 0 6px;
       font-size: 17px;
     }
 
-    .logic-card p {
+    .logic-card p,
+    .feature-card p {
       margin: 0;
       color: #405168;
     }
@@ -295,34 +270,14 @@
       color: var(--muted);
     }
 
-    .version-legend {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .legend-card {
-      padding: 16px;
-      border-radius: 14px;
-      background: #f8fbfd;
-      border: 1px solid var(--line);
-    }
-
-    .legend-card b {
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .legend-card span {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
     .comparison-list {
       display: grid;
       gap: 22px;
       margin-top: 20px;
+    }
+
+    #screens .comparison-list {
+      margin-top: 18px;
     }
 
     .compare-set {
@@ -362,16 +317,10 @@
       font-weight: 800;
     }
 
-    .compare-grid,
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 18px;
-    }
-
     .compare-grid {
-      margin-top: 0;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
     }
 
     .thumb {
@@ -408,106 +357,23 @@
       font-size: 13px;
     }
 
-    .option-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 18px;
-    }
-
-    .option-card {
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
-      overflow: hidden;
-      border-radius: 16px;
-      background: #ffffff;
-      border: 1px solid var(--line);
-      box-shadow: 0 8px 24px rgba(20, 48, 80, 0.08);
-    }
-
-    .option-card img {
-      width: 100%;
-      aspect-ratio: 9 / 16;
-      object-fit: cover;
-      object-position: top;
-      background: #eef2f7;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .option-body {
-      display: grid;
-      gap: 10px;
-      padding: 16px;
-    }
-
-    .option-body h3 {
-      margin: 0;
-      font-size: 17px;
-    }
-
-    .option-body p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .pros-cons {
-      display: grid;
-      gap: 8px;
-    }
-
-    .pros-cons div {
-      padding: 10px;
-      border-radius: 12px;
-      background: #f8fbfd;
-      color: #405168;
-      font-size: 14px;
-    }
-
-    .pros-cons b {
-      display: block;
-      margin-bottom: 3px;
-      color: var(--text);
-    }
-
-    .review-list {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin: 18px 0 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .review-list li {
-      min-height: 104px;
-      padding: 16px;
-      border-radius: 14px;
-      background: #f8fbfd;
-      border: 1px solid var(--line);
-    }
-
-    .review-list b {
-      display: block;
-      margin-bottom: 8px;
-    }
-
     footer {
       color: var(--muted);
       font-size: 13px;
       text-align: center;
     }
 
+    @media (max-width: 1100px) {
+      .flow,
+      .compare-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
     @media (max-width: 900px) {
       .hero,
-      .flow,
       .logic-flow,
-      .version-legend,
-      .compare-grid,
-      .gallery,
-      .option-grid,
-      .review-list {
+      .feature-grid {
         grid-template-columns: 1fr 1fr;
       }
     }
@@ -521,11 +387,8 @@
       .hero,
       .flow,
       .logic-flow,
-      .version-legend,
+      .feature-grid,
       .compare-grid,
-      .gallery,
-      .option-grid,
-      .review-list,
       .status-row {
         grid-template-columns: 1fr;
       }
@@ -536,13 +399,9 @@
         padding: 20px;
       }
 
-      .embed-head {
+      .compare-head {
         align-items: flex-start;
         flex-direction: column;
-      }
-
-      .embed-wrap {
-        min-height: 440px;
       }
     }
   </style>
@@ -555,16 +414,15 @@
           <p class="eyebrow">AIRS App UI Reference</p>
           <h1 id="page-title"><span class="gradient-text">AIRS</span><br>UI 공유 보드</h1>
           <p class="lead">
-            AIRS 앱의 로그인, 회원가입, 노드 목록, Bluetooth 연결, Wi-Fi 설정,
-            성공/실패 상태, 노드 상세 화면을 한 흐름으로 검토하기 위한 공유 페이지입니다.
+            AIRS 앱의 인증, 노드 등록, 기기 연결, 노드 상세, 신규 스마트 제어 기능까지
+            한 흐름으로 검토하기 위한 팀원 공유 페이지입니다.
           </p>
         </div>
         <div class="actions">
-          <a class="button primary" href="https://www.figma.com/design/YJPJM3ggbKj4os7xwixT7Q/AIRS-App-UI-Reference-Board?node-id=0-1&amp;p=f&amp;t=KkVUkYBg2WA0pUu0-0" target="_blank" rel="noreferrer">Figma에서 열기</a>
+          <a class="button primary" href="#screens">UI 비교 보기</a>
           <a class="button" href="#logic-title">로직 흐름 보기</a>
-          <a class="button" href="#screens">UI 비교 보기</a>
-          <a class="button" href="#option-title">장단점 보기</a>
-          <a class="button" href="#review">리뷰 포인트 보기</a>
+          <a class="button" href="#feature-notes-title">신규 기능 정리</a>
+          <a class="button" href="new_features_ui_plan.md" target="_blank">신규 기능 MD</a>
         </div>
       </div>
 
@@ -573,13 +431,13 @@
           <p class="eyebrow">Current Status</p>
           <h2>팀원 검토용 기준</h2>
           <p class="lead">
-            현재 파일은 최종 디자인이 아니라, AIRS 앱 UI 방향을 비교하고 의견을 모으기 위한 레퍼런스 보드입니다.
+            최종 디자인 확정본이 아니라, AIRS 앱의 화면 흐름과 디자인 후보를 같은 기준에서 비교하기 위한 보드입니다.
           </p>
         </div>
         <div class="status-row">
           <div class="pill">
-            <strong>화면 수</strong>
-            <span>12 screens</span>
+            <strong>화면 범위</strong>
+            <span>01-17</span>
           </div>
           <div class="pill">
             <strong>현재 범위</strong>
@@ -590,28 +448,14 @@
             <span>Onboarding</span>
           </div>
           <div class="pill">
-            <strong>상태 화면</strong>
-            <span>Success / Fail</span>
+            <strong>확장 기능</strong>
+            <span>Smart Control</span>
           </div>
         </div>
         <div class="note">
-          Figma 파일이 보이지 않으면 Share 권한을 <b>Anyone with the link can view</b>로 설정해야 합니다.
+          이 페이지는 로컬 이미지 자산을 기준으로 정리되어 있으며, GitHub Pages에서 팀원들이 같은 화면을 확인할 수 있습니다.
         </div>
       </aside>
-    </section>
-
-    <section class="embed-card" aria-labelledby="figma-title">
-      <div class="embed-head">
-        <h2 id="figma-title">Figma Preview</h2>
-        <a class="button" href="https://www.figma.com/design/YJPJM3ggbKj4os7xwixT7Q/AIRS-App-UI-Reference-Board?node-id=0-1&amp;p=f&amp;t=KkVUkYBg2WA0pUu0-0" target="_blank" rel="noreferrer">새 탭에서 보기</a>
-      </div>
-      <div class="embed-wrap">
-        <iframe
-          title="AIRS Mobile UI Reference"
-          src="https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FYJPJM3ggbKj4os7xwixT7Q%2FAIRS-App-UI-Reference-Board%3Fnode-id%3D0-1%26p%3Df%26t%3DKkVUkYBg2WA0pUu0-0"
-          allowfullscreen>
-        </iframe>
-      </div>
     </section>
 
     <section class="section" aria-labelledby="flow-title">
@@ -623,7 +467,7 @@
         </div>
         <div class="flow-step">
           <b>2. 노드 관리</b>
-          내 노드 목록 / 빈 상태 / 노드 상세
+          내 노드 목록 / 빈 상태
         </div>
         <div class="flow-step">
           <b>3. 기기 연결</b>
@@ -633,21 +477,29 @@
           <b>4. 네트워크 설정</b>
           Wi-Fi 설정 / 최종 성공 / 최종 실패
         </div>
+        <div class="flow-step">
+          <b>5. 노드 상세</b>
+          센서값 / 상태 / 기기 정보
+        </div>
+        <div class="flow-step">
+          <b>6. 스마트 제어</b>
+          예측 / 외부 비교 / 자동화 / 온도 조절
+        </div>
       </div>
     </section>
 
     <section class="section" aria-labelledby="logic-title">
       <h2 id="logic-title">AIRS 로직 Flow와 UI 연결</h2>
       <p class="section-subtitle">
-        AIRS 앱의 실제 사용 흐름을 화면 단위로 해석한 내용입니다. 팀원 리뷰 시 “예쁜 화면”보다
-        각 화면이 어떤 상태와 다음 행동을 담당하는지 함께 봐주세요.
+        앱의 실제 상태 전환을 화면 단위로 연결했습니다. 신규 기능은 기존 노드 상세 이후의 확장 흐름으로 보되,
+        예측과 자동화가 메인 화면에 어느 정도 노출되어야 하는지도 함께 검토합니다.
       </p>
       <div class="logic-flow">
         <div class="logic-card">
           <span class="logic-number">1</span>
           <div>
             <h3>사용자 진입과 인증</h3>
-            <p>사용자는 로그인 또는 회원가입 화면에서 계정 상태를 확정합니다. 인증이 끝나면 앱은 사용자의 등록 노드 목록을 불러오는 흐름으로 넘어갑니다.</p>
+            <p>사용자는 로그인 또는 회원가입 화면에서 계정 상태를 확정합니다. 인증 완료 후 등록 노드 목록을 불러옵니다.</p>
             <span class="screen-link">관련 UI: 01 로그인, 02 회원가입</span>
           </div>
         </div>
@@ -655,7 +507,7 @@
           <span class="logic-number">2</span>
           <div>
             <h3>노드 목록 분기</h3>
-            <p>등록된 노드가 있으면 온도, 습도, 연결 상태, 신호 강도, 최근 업데이트를 카드로 보여줍니다. 없으면 새 디바이스 추가를 중심으로 빈 상태를 안내합니다.</p>
+            <p>등록된 노드가 있으면 온습도, 연결 상태, 신호 강도, 최근 업데이트를 보여주고, 없으면 새 디바이스 추가를 안내합니다.</p>
             <span class="screen-link">관련 UI: 03 내 노드 있음, 04 내 노드 없음</span>
           </div>
         </div>
@@ -663,58 +515,96 @@
           <span class="logic-number">3</span>
           <div>
             <h3>Bluetooth 검색과 페어링</h3>
-            <p>새 디바이스 추가를 누르면 주변 AIRS 기기를 검색합니다. 사용자가 기기를 선택하면 연결 중 모달을 보여주고, 결과에 따라 성공 또는 실패 상태로 분기합니다.</p>
+            <p>새 디바이스 추가 후 주변 AIRS 기기를 검색합니다. 선택한 기기의 연결 중 상태와 성공/실패 결과를 분명하게 보여줍니다.</p>
             <span class="screen-link">관련 UI: 05 Bluetooth 검색, 06 연결 중, 07 실패, 08 성공</span>
           </div>
         </div>
         <div class="logic-card">
           <span class="logic-number">4</span>
           <div>
-            <h3>Wi-Fi 정보 전달</h3>
-            <p>Bluetooth 페어링이 성공하면 선택된 AIRS 노드에 Wi-Fi 이름과 비밀번호를 전달합니다. 이 화면은 입력 실수와 네트워크 조건 안내가 특히 중요합니다.</p>
-            <span class="screen-link">관련 UI: 09 Wi-Fi 설정</span>
+            <h3>Wi-Fi 전달과 복구</h3>
+            <p>Bluetooth 연결 성공 후 노드에 Wi-Fi 정보를 전달합니다. 성공 시 목록/상세로 이동하고, 실패 시 재시도 가능한 원인을 안내합니다.</p>
+            <span class="screen-link">관련 UI: 09 Wi-Fi 설정, 10 설정 성공, 11 설정 실패</span>
           </div>
         </div>
         <div class="logic-card">
           <span class="logic-number">5</span>
           <div>
-            <h3>설정 완료 또는 복구</h3>
-            <p>Wi-Fi 연결이 성공하면 내 노드 또는 노드 상세로 이동합니다. 실패하면 비밀번호, 공유기 거리, 재시도 흐름을 안내해 사용자가 회복할 수 있게 해야 합니다.</p>
-            <span class="screen-link">관련 UI: 10 설정 성공, 11 설정 실패</span>
+            <h3>운영 중 모니터링</h3>
+            <p>등록 이후 노드 상세에서 현재 온습도, 연결 상태, 기기 정보를 확인합니다. 이 화면이 신규 기능의 진입점이 됩니다.</p>
+            <span class="screen-link">관련 UI: 12 노드 상세</span>
           </div>
         </div>
         <div class="logic-card">
           <span class="logic-number">6</span>
           <div>
-            <h3>운영 중 모니터링</h3>
-            <p>등록 이후에는 노드 상세에서 센서값과 기기 정보를 확인합니다. 온도 조절 대안들은 이 상세 화면을 더 제어 중심으로 확장할 때 참고할 수 있습니다.</p>
-            <span class="screen-link">관련 UI: 12 노드 상세, 온도 조절 페이지 대안</span>
+            <h3>예측과 외부 비교</h3>
+            <p>현재 센서값과 기상 API를 함께 사용해 20분 후 온습도와 외부 대비 온도 차이를 표시합니다.</p>
+            <span class="screen-link">관련 UI: 13 예측 대시보드, 14 외부 온도 비교</span>
+          </div>
+        </div>
+        <div class="logic-card">
+          <span class="logic-number">7</span>
+          <div>
+            <h3>부재중 보호 자동화</h3>
+            <p>사람 감지 센서와 보호 온도 기준을 조합해 방이 너무 더워질 때 자동으로 에어컨 동작 여부를 제안하거나 실행합니다.</p>
+            <span class="screen-link">관련 UI: 15 부재중 온도 보호</span>
+          </div>
+        </div>
+        <div class="logic-card">
+          <span class="logic-number">8</span>
+          <div>
+            <h3>위치 기반 자동 활성화와 제어</h3>
+            <p>사용자가 집 근처에 들어오면 에어컨을 미리 켜고, 외출 또는 부재가 감지되면 끄기 알림을 제공합니다. 온도 조절 화면은 이 제어 흐름의 후보입니다.</p>
+            <span class="screen-link">관련 UI: 16 GPS 자동 활성화, 17 온도 조절 페이지 대안</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="screens" aria-labelledby="screens-title">
-      <h2 id="screens-title">UI 버전 비교</h2>
+    <section class="section" aria-labelledby="feature-notes-title">
+      <h2 id="feature-notes-title">신규 기능 회의 정리</h2>
       <p class="section-subtitle">
-        같은 화면 범주 안에서 `2.UI_compressed` 원본 레퍼런스, `3.UI_with_icon` 펭귄 적용안,
-        그리고 생성된 대안 UI를 나란히 확인할 수 있게 정리했습니다.
+        2026-05-24 팀원 회의에서 정리한 아이디어입니다. 기존 LCD 온습도 표시와 예측 기능을 유지하면서,
+        외부 센서·기상 API·사람 감지·GPS 자동화를 AIRS의 차별점으로 확장하는 방향입니다.
       </p>
-      <div class="version-legend">
-        <div class="legend-card">
-          <b>2.UI_compressed</b>
-          <span>초기 GPT 생성 이미지. 화면 흐름과 기본 정보 구조를 확인하는 기준입니다.</span>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="logic-number">13</span>
+          <div>
+            <h3>20분 후 온습도 예측</h3>
+            <p>현재 센서값과 외부 온도를 함께 보고, 금방 더워질지 미리 판단해 에어컨 실행 여부를 결정합니다.</p>
+          </div>
         </div>
-        <div class="legend-card">
-          <b>3.UI_with_icon</b>
-          <span>AIRS 펭귄 아이콘을 반영한 현재 후보안입니다.</span>
+        <div class="feature-card">
+          <span class="logic-number">14</span>
+          <div>
+            <h3>외부 온도 대비 온도 차이</h3>
+            <p>기상청 API와 위치 설정을 활용해 실내외 온도 차이를 보여주고, 사용자가 더위를 체감하기 전에 판단을 돕습니다.</p>
+          </div>
         </div>
-        <div class="legend-card">
-          <b>대안 UI들</b>
-          <span>팀원 비교를 위해 새 레이아웃과 콘셉트로 생성한 후보안입니다.</span>
+        <div class="feature-card">
+          <span class="logic-number">15</span>
+          <div>
+            <h3>부재중 온도 보호</h3>
+            <p>사람이 없을 때도 방 온도가 너무 올라가면 식품이나 민감한 물품 보호를 위해 에어컨 동작을 제안합니다.</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <span class="logic-number">16</span>
+          <div>
+            <h3>GPS 자동 활성화</h3>
+            <p>사용자가 집 근처에 들어오면 자동으로 에어컨을 켜고, 외출 상태가 길어지면 끄기 알림을 제공합니다.</p>
+          </div>
         </div>
       </div>
+      <div class="actions">
+        <a class="button" href="new_features_ui_plan.md" target="_blank">신규 기능 MD 보기</a>
+      </div>
+    </section>
 
+    <section class="section" id="screens" aria-labelledby="screens-title">
+      <h2 id="screens-title">UI 버전 비교</h2>
       <div class="comparison-list">
         <article class="compare-set">
           <div class="compare-head">
@@ -726,29 +616,29 @@
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/ui_compressed/01_login.jpg" target="_blank">
-              <img src="assets/ui_compressed/01_login.jpg" alt="AIRS 로그인 원본 레퍼런스">
-              <b>2.UI_compressed</b>
+              <img src="assets/ui_compressed/01_login.jpg" alt="AIRS 01 로그인 초기 기준안">
+              <b>초기 기준안</b>
               <span>원본 레퍼런스</span>
             </a>
             <a class="thumb" href="assets/ui_with_icon/01_login.png" target="_blank">
-              <img src="assets/ui_with_icon/01_login.png" alt="AIRS 로그인 펭귄 적용안">
-              <b>3.UI_with_icon</b>
+              <img src="assets/ui_with_icon/01_login.png" alt="AIRS 01 로그인 펭귄 적용안">
+              <b>현재안</b>
               <span>펭귄 적용안</span>
             </a>
-            <a class="thumb" href="assets/alternatives/login/chatgpt_image_2026_5_22_02_48_13.png" target="_blank">
-              <img src="assets/alternatives/login/chatgpt_image_2026_5_22_02_48_13.png" alt="AIRS 로그인 대안 1">
-              <b>대안 UI들</b>
-              <span>로그인 대안 1</span>
+            <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/01_login.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_01_dark_night/01_login.png" alt="AIRS 01 로그인 Night Premium 대안">
+              <b>대안 1</b>
+              <span>Night Premium</span>
             </a>
-            <a class="thumb" href="assets/alternatives/login/chatgpt_image_2026_5_22_02_52_48.png" target="_blank">
-              <img src="assets/alternatives/login/chatgpt_image_2026_5_22_02_52_48.png" alt="AIRS 로그인 대안 2">
-              <b>대안 UI들</b>
-              <span>로그인 대안 2</span>
+            <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/01_login.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_02_fresh_card/01_login.png" alt="AIRS 01 로그인 Fresh Card 대안">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
             </a>
-            <a class="thumb" href="assets/alternatives/login/chatgpt_image_2026_5_22_02_56_50.png" target="_blank">
-              <img src="assets/alternatives/login/chatgpt_image_2026_5_22_02_56_50.png" alt="AIRS 로그인 대안 3">
-              <b>대안 UI들</b>
-              <span>로그인 대안 3</span>
+            <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/01_login.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_03_cozy_drawer/01_login.png" alt="AIRS 01 로그인 Cozy Drawer 대안">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
             </a>
           </div>
         </article>
@@ -763,14 +653,29 @@
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/ui_compressed/02_signup.jpg" target="_blank">
-              <img src="assets/ui_compressed/02_signup.jpg" alt="AIRS 회원가입 원본 레퍼런스">
-              <b>2.UI_compressed</b>
+              <img src="assets/ui_compressed/02_signup.jpg" alt="AIRS 02 회원가입 초기 기준안">
+              <b>초기 기준안</b>
               <span>원본 레퍼런스</span>
             </a>
             <a class="thumb" href="assets/ui_with_icon/02_signup.png" target="_blank">
-              <img src="assets/ui_with_icon/02_signup.png" alt="AIRS 회원가입 펭귄 적용안">
-              <b>3.UI_with_icon</b>
+              <img src="assets/ui_with_icon/02_signup.png" alt="AIRS 02 회원가입 펭귄 적용안">
+              <b>현재안</b>
               <span>펭귄 적용안</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/02_signup.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_01_dark_night/02_signup.png" alt="AIRS 02 회원가입 Night Premium 대안">
+              <b>대안 1</b>
+              <span>Night Premium</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/02_signup.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_02_fresh_card/02_signup.png" alt="AIRS 02 회원가입 Fresh Card 대안">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/02_signup.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_03_cozy_drawer/02_signup.png" alt="AIRS 02 회원가입 Cozy Drawer 대안">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
             </a>
           </div>
         </article>
@@ -779,30 +684,45 @@
           <div class="compare-head">
             <div>
               <h3>03 내 노드 있음</h3>
-              <p>가장 중요한 메인 화면입니다. 현재안과 대안의 정보 배치, 버튼 위치, 화면 성격을 비교합니다.</p>
+              <p>메인 화면에서 온습도, 연결 상태, 신호 강도, 추가 행동이 잘 보이는지 비교합니다.</p>
             </div>
             <span class="tag">메인</span>
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/ui_compressed/03_1_yes_node_list.jpg" target="_blank">
-              <img src="assets/ui_compressed/03_1_yes_node_list.jpg" alt="AIRS 내 노드 있음 원본 레퍼런스">
-              <b>2.UI_compressed</b>
+              <img src="assets/ui_compressed/03_1_yes_node_list.jpg" alt="AIRS 03 내 노드 있음 초기 기준안">
+              <b>초기 기준안</b>
               <span>원본 레퍼런스</span>
             </a>
             <a class="thumb" href="assets/ui_with_icon/03_1_yes_node_list.png" target="_blank">
-              <img src="assets/ui_with_icon/03_1_yes_node_list.png" alt="AIRS 내 노드 있음 펭귄 적용안">
-              <b>3.UI_with_icon</b>
+              <img src="assets/ui_with_icon/03_1_yes_node_list.png" alt="AIRS 03 내 노드 있음 펭귄 적용안">
+              <b>현재안</b>
               <span>펭귄 적용안</span>
             </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/03_1_yes_node_list.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_01_dark_night/03_1_yes_node_list.png" alt="AIRS 03 내 노드 있음 Night Premium 대안">
+              <b>대안 1</b>
+              <span>Night Premium</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/03_1_yes_node_list.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_02_fresh_card/03_1_yes_node_list.png" alt="AIRS 03 내 노드 있음 Fresh Card 대안">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/03_1_yes_node_list.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_03_cozy_drawer/03_1_yes_node_list.png" alt="AIRS 03 내 노드 있음 Cozy Drawer 대안">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
+            </a>
             <a class="thumb" href="assets/alternatives/node_list/chatgpt_image_2026_5_22_03_08_58.png" target="_blank">
-              <img src="assets/alternatives/node_list/chatgpt_image_2026_5_22_03_08_58.png" alt="AIRS 내 노드 대안 1">
-              <b>대안 UI들</b>
-              <span>내 노드 대안 1</span>
+              <img src="assets/alternatives/node_list/chatgpt_image_2026_5_22_03_08_58.png" alt="AIRS 03 내 노드 있음 Summary Grid 추가 후보">
+              <b>추가 후보</b>
+              <span>Summary Grid</span>
             </a>
             <a class="thumb" href="assets/alternatives/node_list/chatgpt_image_2026_5_22_03_13_59.png" target="_blank">
-              <img src="assets/alternatives/node_list/chatgpt_image_2026_5_22_03_13_59.png" alt="AIRS 내 노드 대안 2">
-              <b>대안 UI들</b>
-              <span>내 노드 대안 2</span>
+              <img src="assets/alternatives/node_list/chatgpt_image_2026_5_22_03_13_59.png" alt="AIRS 03 내 노드 있음 Control Dashboard 추가 후보">
+              <b>추가 후보</b>
+              <span>Control Dashboard</span>
             </a>
           </div>
         </article>
@@ -817,14 +737,29 @@
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/ui_compressed/03_2_no_node_list.jpg" target="_blank">
-              <img src="assets/ui_compressed/03_2_no_node_list.jpg" alt="AIRS 내 노드 없음 원본 레퍼런스">
-              <b>2.UI_compressed</b>
+              <img src="assets/ui_compressed/03_2_no_node_list.jpg" alt="AIRS 04 내 노드 없음 초기 기준안">
+              <b>초기 기준안</b>
               <span>원본 레퍼런스</span>
             </a>
             <a class="thumb" href="assets/ui_with_icon/03_2_no_node_list.png" target="_blank">
-              <img src="assets/ui_with_icon/03_2_no_node_list.png" alt="AIRS 내 노드 없음 펭귄 적용안">
-              <b>3.UI_with_icon</b>
+              <img src="assets/ui_with_icon/03_2_no_node_list.png" alt="AIRS 04 내 노드 없음 펭귄 적용안">
+              <b>현재안</b>
               <span>펭귄 적용안</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/03_2_no_node_list.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_01_dark_night/03_2_no_node_list.png" alt="AIRS 04 내 노드 없음 Night Premium 대안">
+              <b>대안 1</b>
+              <span>Night Premium</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/03_2_no_node_list.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_02_fresh_card/03_2_no_node_list.png" alt="AIRS 04 내 노드 없음 Fresh Card 대안">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/03_2_no_node_list.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_03_cozy_drawer/03_2_no_node_list.png" alt="AIRS 04 내 노드 없음 Cozy Drawer 대안">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
             </a>
           </div>
         </article>
@@ -839,14 +774,29 @@
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/ui_compressed/04_bluetooth_list.jpg" target="_blank">
-              <img src="assets/ui_compressed/04_bluetooth_list.jpg" alt="AIRS Bluetooth 검색 원본 레퍼런스">
-              <b>2.UI_compressed</b>
+              <img src="assets/ui_compressed/04_bluetooth_list.jpg" alt="AIRS 05 Bluetooth 검색 초기 기준안">
+              <b>초기 기준안</b>
               <span>원본 레퍼런스</span>
             </a>
             <a class="thumb" href="assets/ui_with_icon/04_bluetooth_list.png" target="_blank">
-              <img src="assets/ui_with_icon/04_bluetooth_list.png" alt="AIRS Bluetooth 검색 펭귄 적용안">
-              <b>3.UI_with_icon</b>
+              <img src="assets/ui_with_icon/04_bluetooth_list.png" alt="AIRS 05 Bluetooth 검색 펭귄 적용안">
+              <b>현재안</b>
               <span>펭귄 적용안</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/04_bluetooth_list.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_01_dark_night/04_bluetooth_list.png" alt="AIRS 05 Bluetooth 검색 Night Premium 대안">
+              <b>대안 1</b>
+              <span>Night Premium</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/04_bluetooth_list.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_02_fresh_card/04_bluetooth_list.png" alt="AIRS 05 Bluetooth 검색 Fresh Card 대안">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/04_bluetooth_list.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_03_cozy_drawer/04_bluetooth_list.png" alt="AIRS 05 Bluetooth 검색 Cozy Drawer 대안">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
             </a>
           </div>
         </article>
@@ -861,14 +811,29 @@
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/ui_compressed/04_1_bluetooth_linking.jpg" target="_blank">
-              <img src="assets/ui_compressed/04_1_bluetooth_linking.jpg" alt="AIRS Bluetooth 연결 중 원본 레퍼런스">
-              <b>2.UI_compressed</b>
+              <img src="assets/ui_compressed/04_1_bluetooth_linking.jpg" alt="AIRS 06 Bluetooth 연결 중 초기 기준안">
+              <b>초기 기준안</b>
               <span>원본 레퍼런스</span>
             </a>
             <a class="thumb" href="assets/ui_with_icon/04_1_bluetooth_linking.png" target="_blank">
-              <img src="assets/ui_with_icon/04_1_bluetooth_linking.png" alt="AIRS Bluetooth 연결 중 펭귄 적용안">
-              <b>3.UI_with_icon</b>
+              <img src="assets/ui_with_icon/04_1_bluetooth_linking.png" alt="AIRS 06 Bluetooth 연결 중 펭귄 적용안">
+              <b>현재안</b>
               <span>펭귄 적용안</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/04_1_bluetooth_linking.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_01_dark_night/04_1_bluetooth_linking.png" alt="AIRS 06 Bluetooth 연결 중 Night Premium 대안">
+              <b>대안 1</b>
+              <span>Night Premium</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/04_1_bluetooth_linking.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_02_fresh_card/04_1_bluetooth_linking.png" alt="AIRS 06 Bluetooth 연결 중 Fresh Card 대안">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/04_1_bluetooth_linking.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_03_cozy_drawer/04_1_bluetooth_linking.png" alt="AIRS 06 Bluetooth 연결 중 Cozy Drawer 대안">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
             </a>
           </div>
         </article>
@@ -883,14 +848,29 @@
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/ui_compressed/04_2_bluetooth_fail.jpg" target="_blank">
-              <img src="assets/ui_compressed/04_2_bluetooth_fail.jpg" alt="AIRS Bluetooth 실패 원본 레퍼런스">
-              <b>2.UI_compressed</b>
+              <img src="assets/ui_compressed/04_2_bluetooth_fail.jpg" alt="AIRS 07 Bluetooth 실패 초기 기준안">
+              <b>초기 기준안</b>
               <span>원본 레퍼런스</span>
             </a>
             <a class="thumb" href="assets/ui_with_icon/04_2_bluetooth_fail.png" target="_blank">
-              <img src="assets/ui_with_icon/04_2_bluetooth_fail.png" alt="AIRS Bluetooth 실패 펭귄 적용안">
-              <b>3.UI_with_icon</b>
+              <img src="assets/ui_with_icon/04_2_bluetooth_fail.png" alt="AIRS 07 Bluetooth 실패 펭귄 적용안">
+              <b>현재안</b>
               <span>펭귄 적용안</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/04_2_bluetooth_fail.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_01_dark_night/04_2_bluetooth_fail.png" alt="AIRS 07 Bluetooth 실패 Night Premium 대안">
+              <b>대안 1</b>
+              <span>Night Premium</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/04_2_bluetooth_fail.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_02_fresh_card/04_2_bluetooth_fail.png" alt="AIRS 07 Bluetooth 실패 Fresh Card 대안">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/04_2_bluetooth_fail.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_03_cozy_drawer/04_2_bluetooth_fail.png" alt="AIRS 07 Bluetooth 실패 Cozy Drawer 대안">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
             </a>
           </div>
         </article>
@@ -905,14 +885,29 @@
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/ui_compressed/04_3_bluetooth_success.jpg" target="_blank">
-              <img src="assets/ui_compressed/04_3_bluetooth_success.jpg" alt="AIRS Bluetooth 성공 원본 레퍼런스">
-              <b>2.UI_compressed</b>
+              <img src="assets/ui_compressed/04_3_bluetooth_success.jpg" alt="AIRS 08 Bluetooth 성공 초기 기준안">
+              <b>초기 기준안</b>
               <span>원본 레퍼런스</span>
             </a>
             <a class="thumb" href="assets/ui_with_icon/04_3_bluetooth_success.png" target="_blank">
-              <img src="assets/ui_with_icon/04_3_bluetooth_success.png" alt="AIRS Bluetooth 성공 펭귄 적용안">
-              <b>3.UI_with_icon</b>
+              <img src="assets/ui_with_icon/04_3_bluetooth_success.png" alt="AIRS 08 Bluetooth 성공 펭귄 적용안">
+              <b>현재안</b>
               <span>펭귄 적용안</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/04_3_bluetooth_success.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_01_dark_night/04_3_bluetooth_success.png" alt="AIRS 08 Bluetooth 성공 Night Premium 대안">
+              <b>대안 1</b>
+              <span>Night Premium</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/04_3_bluetooth_success.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_02_fresh_card/04_3_bluetooth_success.png" alt="AIRS 08 Bluetooth 성공 Fresh Card 대안">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/04_3_bluetooth_success.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_03_cozy_drawer/04_3_bluetooth_success.png" alt="AIRS 08 Bluetooth 성공 Cozy Drawer 대안">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
             </a>
           </div>
         </article>
@@ -927,14 +922,29 @@
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/ui_compressed/05_wifi_setup_screen.jpg" target="_blank">
-              <img src="assets/ui_compressed/05_wifi_setup_screen.jpg" alt="AIRS Wi-Fi 설정 원본 레퍼런스">
-              <b>2.UI_compressed</b>
+              <img src="assets/ui_compressed/05_wifi_setup_screen.jpg" alt="AIRS 09 Wi-Fi 설정 초기 기준안">
+              <b>초기 기준안</b>
               <span>원본 레퍼런스</span>
             </a>
             <a class="thumb" href="assets/ui_with_icon/05_wifi_setup_screen.png" target="_blank">
-              <img src="assets/ui_with_icon/05_wifi_setup_screen.png" alt="AIRS Wi-Fi 설정 펭귄 적용안">
-              <b>3.UI_with_icon</b>
+              <img src="assets/ui_with_icon/05_wifi_setup_screen.png" alt="AIRS 09 Wi-Fi 설정 펭귄 적용안">
+              <b>현재안</b>
               <span>펭귄 적용안</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/05_wifi_setup.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_01_dark_night/05_wifi_setup.png" alt="AIRS 09 Wi-Fi 설정 Night Premium 대안">
+              <b>대안 1</b>
+              <span>Night Premium</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/05_wifi_setup.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_02_fresh_card/05_wifi_setup.png" alt="AIRS 09 Wi-Fi 설정 Fresh Card 대안">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/05_wifi_setup.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_03_cozy_drawer/05_wifi_setup.png" alt="AIRS 09 Wi-Fi 설정 Cozy Drawer 대안">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
             </a>
           </div>
         </article>
@@ -943,20 +953,35 @@
           <div class="compare-head">
             <div>
               <h3>10 설정 성공</h3>
-              <p>완료감, 다음 행동, 펭귄 아이콘의 적정 존재감을 비교합니다.</p>
+              <p>완료감과 다음 행동이 명확한지 비교합니다.</p>
             </div>
             <span class="tag">상태</span>
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/ui_compressed/06_setup_success_screen.jpg" target="_blank">
-              <img src="assets/ui_compressed/06_setup_success_screen.jpg" alt="AIRS 설정 성공 원본 레퍼런스">
-              <b>2.UI_compressed</b>
+              <img src="assets/ui_compressed/06_setup_success_screen.jpg" alt="AIRS 10 설정 성공 초기 기준안">
+              <b>초기 기준안</b>
               <span>원본 레퍼런스</span>
             </a>
             <a class="thumb" href="assets/ui_with_icon/06_setup_success_screen.png" target="_blank">
-              <img src="assets/ui_with_icon/06_setup_success_screen.png" alt="AIRS 설정 성공 펭귄 적용안">
-              <b>3.UI_with_icon</b>
+              <img src="assets/ui_with_icon/06_setup_success_screen.png" alt="AIRS 10 설정 성공 펭귄 적용안">
+              <b>현재안</b>
               <span>펭귄 적용안</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/06_setup_success.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_01_dark_night/06_setup_success.png" alt="AIRS 10 설정 성공 Night Premium 대안">
+              <b>대안 1</b>
+              <span>Night Premium</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/06_setup_success.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_02_fresh_card/06_setup_success.png" alt="AIRS 10 설정 성공 Fresh Card 대안">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/06_setup_success.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_03_cozy_drawer/06_setup_success.png" alt="AIRS 10 설정 성공 Cozy Drawer 대안">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
             </a>
           </div>
         </article>
@@ -971,14 +996,29 @@
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/ui_compressed/07_setup_failure_screen.jpg" target="_blank">
-              <img src="assets/ui_compressed/07_setup_failure_screen.jpg" alt="AIRS 설정 실패 원본 레퍼런스">
-              <b>2.UI_compressed</b>
+              <img src="assets/ui_compressed/07_setup_failure_screen.jpg" alt="AIRS 11 설정 실패 초기 기준안">
+              <b>초기 기준안</b>
               <span>원본 레퍼런스</span>
             </a>
             <a class="thumb" href="assets/ui_with_icon/07_setup_failure_screen.png" target="_blank">
-              <img src="assets/ui_with_icon/07_setup_failure_screen.png" alt="AIRS 설정 실패 펭귄 적용안">
-              <b>3.UI_with_icon</b>
+              <img src="assets/ui_with_icon/07_setup_failure_screen.png" alt="AIRS 11 설정 실패 펭귄 적용안">
+              <b>현재안</b>
               <span>펭귄 적용안</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/07_setup_failure.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_01_dark_night/07_setup_failure.png" alt="AIRS 11 설정 실패 Night Premium 대안">
+              <b>대안 1</b>
+              <span>Night Premium</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/07_setup_failure.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_02_fresh_card/07_setup_failure.png" alt="AIRS 11 설정 실패 Fresh Card 대안">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/07_setup_failure.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_03_cozy_drawer/07_setup_failure.png" alt="AIRS 11 설정 실패 Cozy Drawer 대안">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
             </a>
           </div>
         </article>
@@ -993,266 +1033,33 @@
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/ui_compressed/08_node_detail_screen.jpg" target="_blank">
-              <img src="assets/ui_compressed/08_node_detail_screen.jpg" alt="AIRS 노드 상세 원본 레퍼런스">
-              <b>2.UI_compressed</b>
+              <img src="assets/ui_compressed/08_node_detail_screen.jpg" alt="AIRS 12 노드 상세 초기 기준안">
+              <b>초기 기준안</b>
               <span>원본 레퍼런스</span>
             </a>
             <a class="thumb" href="assets/ui_with_icon/08_node_detail_screen.png" target="_blank">
-              <img src="assets/ui_with_icon/08_node_detail_screen.png" alt="AIRS 노드 상세 펭귄 적용안">
-              <b>3.UI_with_icon</b>
+              <img src="assets/ui_with_icon/08_node_detail_screen.png" alt="AIRS 12 노드 상세 펭귄 적용안">
+              <b>현재안</b>
               <span>펭귄 적용안</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/08_node_detail.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_01_dark_night/08_node_detail.png" alt="AIRS 12 노드 상세 Night Premium 대안">
+              <b>대안 1</b>
+              <span>Night Premium</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/08_node_detail.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_02_fresh_card/08_node_detail.png" alt="AIRS 12 노드 상세 Fresh Card 대안">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
+            </a>
+            <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/08_node_detail.png" target="_blank">
+              <img src="assets/alt_login_flow/variant_03_cozy_drawer/08_node_detail.png" alt="AIRS 12 노드 상세 Cozy Drawer 대안">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
             </a>
           </div>
         </article>
-      </div>
-    </section>
 
-    <section class="section" id="alt-flow-01" aria-labelledby="alt-flow-01-title">
-      <h2 id="alt-flow-01-title">로그인 대안 1 기반 전체 플로우</h2>
-      <p class="section-subtitle">
-        `대안 UI들/로그인 페이지`의 첫 번째 후보를 01 로그인 화면으로 보고, 같은 다크 네이비·글래스모피즘·시안/틸
-        콘셉트가 02 회원가입부터 12 노드 상세까지 이어지는지 확인하기 위한 생성 세트입니다.
-      </p>
-      <div class="gallery">
-        <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/01_login.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_01_dark_night/01_login.png" alt="AIRS 로그인 대안 1 기반 01 로그인">
-          <b>대안 플로우 1</b>
-          <span>01 로그인</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/02_signup.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_01_dark_night/02_signup.png" alt="AIRS 로그인 대안 1 기반 02 회원가입">
-          <b>대안 플로우 1</b>
-          <span>02 회원가입</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/03_1_yes_node_list.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_01_dark_night/03_1_yes_node_list.png" alt="AIRS 로그인 대안 1 기반 03 내 노드 있음">
-          <b>대안 플로우 1</b>
-          <span>03 내 노드 있음</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/03_2_no_node_list.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_01_dark_night/03_2_no_node_list.png" alt="AIRS 로그인 대안 1 기반 04 내 노드 없음">
-          <b>대안 플로우 1</b>
-          <span>04 내 노드 없음</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/04_bluetooth_list.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_01_dark_night/04_bluetooth_list.png" alt="AIRS 로그인 대안 1 기반 05 Bluetooth 검색">
-          <b>대안 플로우 1</b>
-          <span>05 Bluetooth 검색</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/04_1_bluetooth_linking.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_01_dark_night/04_1_bluetooth_linking.png" alt="AIRS 로그인 대안 1 기반 06 Bluetooth 연결 중">
-          <b>대안 플로우 1</b>
-          <span>06 Bluetooth 연결 중</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/04_2_bluetooth_fail.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_01_dark_night/04_2_bluetooth_fail.png" alt="AIRS 로그인 대안 1 기반 07 Bluetooth 실패">
-          <b>대안 플로우 1</b>
-          <span>07 Bluetooth 실패</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/04_3_bluetooth_success.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_01_dark_night/04_3_bluetooth_success.png" alt="AIRS 로그인 대안 1 기반 08 Bluetooth 성공">
-          <b>대안 플로우 1</b>
-          <span>08 Bluetooth 성공</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/05_wifi_setup.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_01_dark_night/05_wifi_setup.png" alt="AIRS 로그인 대안 1 기반 09 Wi-Fi 설정">
-          <b>대안 플로우 1</b>
-          <span>09 Wi-Fi 설정</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/06_setup_success.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_01_dark_night/06_setup_success.png" alt="AIRS 로그인 대안 1 기반 10 설정 성공">
-          <b>대안 플로우 1</b>
-          <span>10 설정 성공</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/07_setup_failure.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_01_dark_night/07_setup_failure.png" alt="AIRS 로그인 대안 1 기반 11 설정 실패">
-          <b>대안 플로우 1</b>
-          <span>11 설정 실패</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_01_dark_night/08_node_detail.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_01_dark_night/08_node_detail.png" alt="AIRS 로그인 대안 1 기반 12 노드 상세">
-          <b>대안 플로우 1</b>
-          <span>12 노드 상세</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="section" id="alt-flow-02" aria-labelledby="alt-flow-02-title">
-      <h2 id="alt-flow-02-title">로그인 대안 2 기반 전체 플로우</h2>
-      <p class="section-subtitle">
-        두 번째 로그인 후보의 화이트·민트·프레시 카드 톤을 기준으로 회원가입, 노드 관리, 연결 설정, 상태 화면,
-        노드 상세까지 같은 앱으로 이어지는지 확인하는 세트입니다.
-      </p>
-      <div class="gallery">
-        <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/01_login.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_02_fresh_card/01_login.png" alt="AIRS 로그인 대안 2 기반 01 로그인">
-          <b>대안 플로우 2</b>
-          <span>01 로그인</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/02_signup.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_02_fresh_card/02_signup.png" alt="AIRS 로그인 대안 2 기반 02 회원가입">
-          <b>대안 플로우 2</b>
-          <span>02 회원가입</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/03_1_yes_node_list.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_02_fresh_card/03_1_yes_node_list.png" alt="AIRS 로그인 대안 2 기반 03 내 노드 있음">
-          <b>대안 플로우 2</b>
-          <span>03 내 노드 있음</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/03_2_no_node_list.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_02_fresh_card/03_2_no_node_list.png" alt="AIRS 로그인 대안 2 기반 04 내 노드 없음">
-          <b>대안 플로우 2</b>
-          <span>04 내 노드 없음</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/04_bluetooth_list.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_02_fresh_card/04_bluetooth_list.png" alt="AIRS 로그인 대안 2 기반 05 Bluetooth 검색">
-          <b>대안 플로우 2</b>
-          <span>05 Bluetooth 검색</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/04_1_bluetooth_linking.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_02_fresh_card/04_1_bluetooth_linking.png" alt="AIRS 로그인 대안 2 기반 06 Bluetooth 연결 중">
-          <b>대안 플로우 2</b>
-          <span>06 Bluetooth 연결 중</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/04_2_bluetooth_fail.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_02_fresh_card/04_2_bluetooth_fail.png" alt="AIRS 로그인 대안 2 기반 07 Bluetooth 실패">
-          <b>대안 플로우 2</b>
-          <span>07 Bluetooth 실패</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/04_3_bluetooth_success.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_02_fresh_card/04_3_bluetooth_success.png" alt="AIRS 로그인 대안 2 기반 08 Bluetooth 성공">
-          <b>대안 플로우 2</b>
-          <span>08 Bluetooth 성공</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/05_wifi_setup.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_02_fresh_card/05_wifi_setup.png" alt="AIRS 로그인 대안 2 기반 09 Wi-Fi 설정">
-          <b>대안 플로우 2</b>
-          <span>09 Wi-Fi 설정</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/06_setup_success.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_02_fresh_card/06_setup_success.png" alt="AIRS 로그인 대안 2 기반 10 설정 성공">
-          <b>대안 플로우 2</b>
-          <span>10 설정 성공</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/07_setup_failure.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_02_fresh_card/07_setup_failure.png" alt="AIRS 로그인 대안 2 기반 11 설정 실패">
-          <b>대안 플로우 2</b>
-          <span>11 설정 실패</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_02_fresh_card/08_node_detail.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_02_fresh_card/08_node_detail.png" alt="AIRS 로그인 대안 2 기반 12 노드 상세">
-          <b>대안 플로우 2</b>
-          <span>12 노드 상세</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="section" id="alt-flow-03" aria-labelledby="alt-flow-03-title">
-      <h2 id="alt-flow-03-title">로그인 대안 3 기반 전체 플로우</h2>
-      <p class="section-subtitle">
-        세 번째 로그인 후보의 코지 드로어, 베이지·세이지 톤, 차분한 홈 케어 감성을 기준으로 전체 앱 화면이
-        일관되게 확장되는지 확인하는 세트입니다.
-      </p>
-      <div class="gallery">
-        <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/01_login.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_03_cozy_drawer/01_login.png" alt="AIRS 로그인 대안 3 기반 01 로그인">
-          <b>대안 플로우 3</b>
-          <span>01 로그인</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/02_signup.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_03_cozy_drawer/02_signup.png" alt="AIRS 로그인 대안 3 기반 02 회원가입">
-          <b>대안 플로우 3</b>
-          <span>02 회원가입</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/03_1_yes_node_list.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_03_cozy_drawer/03_1_yes_node_list.png" alt="AIRS 로그인 대안 3 기반 03 내 노드 있음">
-          <b>대안 플로우 3</b>
-          <span>03 내 노드 있음</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/03_2_no_node_list.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_03_cozy_drawer/03_2_no_node_list.png" alt="AIRS 로그인 대안 3 기반 04 내 노드 없음">
-          <b>대안 플로우 3</b>
-          <span>04 내 노드 없음</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/04_bluetooth_list.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_03_cozy_drawer/04_bluetooth_list.png" alt="AIRS 로그인 대안 3 기반 05 Bluetooth 검색">
-          <b>대안 플로우 3</b>
-          <span>05 Bluetooth 검색</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/04_1_bluetooth_linking.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_03_cozy_drawer/04_1_bluetooth_linking.png" alt="AIRS 로그인 대안 3 기반 06 Bluetooth 연결 중">
-          <b>대안 플로우 3</b>
-          <span>06 Bluetooth 연결 중</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/04_2_bluetooth_fail.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_03_cozy_drawer/04_2_bluetooth_fail.png" alt="AIRS 로그인 대안 3 기반 07 Bluetooth 실패">
-          <b>대안 플로우 3</b>
-          <span>07 Bluetooth 실패</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/04_3_bluetooth_success.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_03_cozy_drawer/04_3_bluetooth_success.png" alt="AIRS 로그인 대안 3 기반 08 Bluetooth 성공">
-          <b>대안 플로우 3</b>
-          <span>08 Bluetooth 성공</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/05_wifi_setup.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_03_cozy_drawer/05_wifi_setup.png" alt="AIRS 로그인 대안 3 기반 09 Wi-Fi 설정">
-          <b>대안 플로우 3</b>
-          <span>09 Wi-Fi 설정</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/06_setup_success.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_03_cozy_drawer/06_setup_success.png" alt="AIRS 로그인 대안 3 기반 10 설정 성공">
-          <b>대안 플로우 3</b>
-          <span>10 설정 성공</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/07_setup_failure.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_03_cozy_drawer/07_setup_failure.png" alt="AIRS 로그인 대안 3 기반 11 설정 실패">
-          <b>대안 플로우 3</b>
-          <span>11 설정 실패</span>
-        </a>
-        <a class="thumb" href="assets/alt_login_flow/variant_03_cozy_drawer/08_node_detail.png" target="_blank">
-          <img src="assets/alt_login_flow/variant_03_cozy_drawer/08_node_detail.png" alt="AIRS 로그인 대안 3 기반 12 노드 상세">
-          <b>대안 플로우 3</b>
-          <span>12 노드 상세</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="section" id="new-features" aria-labelledby="new-features-title">
-      <h2 id="new-features-title">신규 기능 회의 정리</h2>
-      <p class="section-subtitle">
-        2026-05-24 팀원 회의에서 정리한 신규 기능 아이디어입니다. 기존 온습도 표시와 예측 기능을 유지하면서,
-        적외선 제어, 외부 온도 비교, 부재중 온도 보호, GPS 기반 자동 활성화로 앱 사용성을 확장하는 방향입니다.
-      </p>
-      <div class="flow">
-        <div class="flow-step">
-          <b>예측 대시보드</b>
-          <span>현재 온습도와 20분 후 예측 온도를 함께 보여주고, LCD 표시 정보를 앱에서도 확인합니다.</span>
-        </div>
-        <div class="flow-step">
-          <b>외부 온도 비교</b>
-          <span>기상청 API 기반 외부 온도와 실내 온도를 비교해 냉방 판단을 돕습니다.</span>
-        </div>
-        <div class="flow-step">
-          <b>부재중 온도 보호</b>
-          <span>mmWave 인체 감지를 활용해 사람이 없을 때 방 온도 보호 규칙을 설정합니다.</span>
-        </div>
-        <div class="flow-step">
-          <b>GPS 자동 활성화</b>
-          <span>집 근처 진입 또는 외출 상태를 감지해 에어컨 켜기/끄기 자동화를 제안합니다.</span>
-        </div>
-      </div>
-      <div class="actions">
-        <a class="button" href="new_features_ui_plan.md" target="_blank">신규 기능 MD 보기</a>
-      </div>
-    </section>
-
-    <section class="section" id="new-feature-ui" aria-labelledby="new-feature-ui-title">
-      <h2 id="new-feature-ui-title">신규 기능 UI 후보</h2>
-      <p class="section-subtitle">
-        회의 메모에서 도출한 4개 대표 화면을 기존 AIRS 밝은 테마와 로그인 대안 3개 테마에 맞춰 생성했습니다.
-        기능별로 어떤 콘셉트가 가장 자연스럽게 확장되는지 비교합니다.
-      </p>
-      <div class="comparison-list">
         <article class="compare-set">
           <div class="compare-head">
             <div>
@@ -1263,24 +1070,24 @@
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/new_features/current_bright/01_prediction_dashboard.png" target="_blank">
-              <img src="assets/new_features/current_bright/01_prediction_dashboard.png" alt="AIRS 신규 기능 현재 밝은 테마 예측 대시보드">
-              <b>현재 밝은 테마</b>
-              <span>예측 대시보드</span>
+              <img src="assets/new_features/current_bright/01_prediction_dashboard.png" alt="AIRS 13 예측 대시보드 Bright Mascot">
+              <b>현재안</b>
+              <span>Bright Mascot</span>
             </a>
             <a class="thumb" href="assets/new_features/variant_01_dark_night/01_prediction_dashboard.png" target="_blank">
-              <img src="assets/new_features/variant_01_dark_night/01_prediction_dashboard.png" alt="AIRS 신규 기능 다크 나이트 예측 대시보드">
-              <b>대안 1 다크 나이트</b>
-              <span>예측 대시보드</span>
+              <img src="assets/new_features/variant_01_dark_night/01_prediction_dashboard.png" alt="AIRS 13 예측 대시보드 Night Premium">
+              <b>대안 1</b>
+              <span>Night Premium</span>
             </a>
             <a class="thumb" href="assets/new_features/variant_02_fresh_card/01_prediction_dashboard.png" target="_blank">
-              <img src="assets/new_features/variant_02_fresh_card/01_prediction_dashboard.png" alt="AIRS 신규 기능 프레시 카드 예측 대시보드">
-              <b>대안 2 프레시 카드</b>
-              <span>예측 대시보드</span>
+              <img src="assets/new_features/variant_02_fresh_card/01_prediction_dashboard.png" alt="AIRS 13 예측 대시보드 Fresh Card">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
             </a>
             <a class="thumb" href="assets/new_features/variant_03_cozy_drawer/01_prediction_dashboard.png" target="_blank">
-              <img src="assets/new_features/variant_03_cozy_drawer/01_prediction_dashboard.png" alt="AIRS 신규 기능 코지 드로어 예측 대시보드">
-              <b>대안 3 코지 드로어</b>
-              <span>예측 대시보드</span>
+              <img src="assets/new_features/variant_03_cozy_drawer/01_prediction_dashboard.png" alt="AIRS 13 예측 대시보드 Cozy Drawer">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
             </a>
           </div>
         </article>
@@ -1295,24 +1102,24 @@
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/new_features/current_bright/02_outdoor_compare.png" target="_blank">
-              <img src="assets/new_features/current_bright/02_outdoor_compare.png" alt="AIRS 신규 기능 현재 밝은 테마 외부 온도 비교">
-              <b>현재 밝은 테마</b>
-              <span>외부 온도 비교</span>
+              <img src="assets/new_features/current_bright/02_outdoor_compare.png" alt="AIRS 14 외부 온도 비교 Bright Mascot">
+              <b>현재안</b>
+              <span>Bright Mascot</span>
             </a>
             <a class="thumb" href="assets/new_features/variant_01_dark_night/02_outdoor_compare.png" target="_blank">
-              <img src="assets/new_features/variant_01_dark_night/02_outdoor_compare.png" alt="AIRS 신규 기능 다크 나이트 외부 온도 비교">
-              <b>대안 1 다크 나이트</b>
-              <span>외부 온도 비교</span>
+              <img src="assets/new_features/variant_01_dark_night/02_outdoor_compare.png" alt="AIRS 14 외부 온도 비교 Night Premium">
+              <b>대안 1</b>
+              <span>Night Premium</span>
             </a>
             <a class="thumb" href="assets/new_features/variant_02_fresh_card/02_outdoor_compare.png" target="_blank">
-              <img src="assets/new_features/variant_02_fresh_card/02_outdoor_compare.png" alt="AIRS 신규 기능 프레시 카드 외부 온도 비교">
-              <b>대안 2 프레시 카드</b>
-              <span>외부 온도 비교</span>
+              <img src="assets/new_features/variant_02_fresh_card/02_outdoor_compare.png" alt="AIRS 14 외부 온도 비교 Fresh Card">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
             </a>
             <a class="thumb" href="assets/new_features/variant_03_cozy_drawer/02_outdoor_compare.png" target="_blank">
-              <img src="assets/new_features/variant_03_cozy_drawer/02_outdoor_compare.png" alt="AIRS 신규 기능 코지 드로어 외부 온도 비교">
-              <b>대안 3 코지 드로어</b>
-              <span>외부 온도 비교</span>
+              <img src="assets/new_features/variant_03_cozy_drawer/02_outdoor_compare.png" alt="AIRS 14 외부 온도 비교 Cozy Drawer">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
             </a>
           </div>
         </article>
@@ -1327,24 +1134,24 @@
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/new_features/current_bright/03_absence_protection.png" target="_blank">
-              <img src="assets/new_features/current_bright/03_absence_protection.png" alt="AIRS 신규 기능 현재 밝은 테마 부재중 온도 보호">
-              <b>현재 밝은 테마</b>
-              <span>부재중 온도 보호</span>
+              <img src="assets/new_features/current_bright/03_absence_protection.png" alt="AIRS 15 부재중 온도 보호 Bright Mascot">
+              <b>현재안</b>
+              <span>Bright Mascot</span>
             </a>
             <a class="thumb" href="assets/new_features/variant_01_dark_night/03_absence_protection.png" target="_blank">
-              <img src="assets/new_features/variant_01_dark_night/03_absence_protection.png" alt="AIRS 신규 기능 다크 나이트 부재중 온도 보호">
-              <b>대안 1 다크 나이트</b>
-              <span>부재중 온도 보호</span>
+              <img src="assets/new_features/variant_01_dark_night/03_absence_protection.png" alt="AIRS 15 부재중 온도 보호 Night Premium">
+              <b>대안 1</b>
+              <span>Night Premium</span>
             </a>
             <a class="thumb" href="assets/new_features/variant_02_fresh_card/03_absence_protection.png" target="_blank">
-              <img src="assets/new_features/variant_02_fresh_card/03_absence_protection.png" alt="AIRS 신규 기능 프레시 카드 부재중 온도 보호">
-              <b>대안 2 프레시 카드</b>
-              <span>부재중 온도 보호</span>
+              <img src="assets/new_features/variant_02_fresh_card/03_absence_protection.png" alt="AIRS 15 부재중 온도 보호 Fresh Card">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
             </a>
             <a class="thumb" href="assets/new_features/variant_03_cozy_drawer/03_absence_protection.png" target="_blank">
-              <img src="assets/new_features/variant_03_cozy_drawer/03_absence_protection.png" alt="AIRS 신규 기능 코지 드로어 부재중 온도 보호">
-              <b>대안 3 코지 드로어</b>
-              <span>부재중 온도 보호</span>
+              <img src="assets/new_features/variant_03_cozy_drawer/03_absence_protection.png" alt="AIRS 15 부재중 온도 보호 Cozy Drawer">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
             </a>
           </div>
         </article>
@@ -1359,202 +1166,69 @@
           </div>
           <div class="compare-grid">
             <a class="thumb" href="assets/new_features/current_bright/04_gps_automation.png" target="_blank">
-              <img src="assets/new_features/current_bright/04_gps_automation.png" alt="AIRS 신규 기능 현재 밝은 테마 GPS 자동 활성화">
-              <b>현재 밝은 테마</b>
-              <span>GPS 자동 활성화</span>
+              <img src="assets/new_features/current_bright/04_gps_automation.png" alt="AIRS 16 GPS 자동 활성화 Bright Mascot">
+              <b>현재안</b>
+              <span>Bright Mascot</span>
             </a>
             <a class="thumb" href="assets/new_features/variant_01_dark_night/04_gps_automation.png" target="_blank">
-              <img src="assets/new_features/variant_01_dark_night/04_gps_automation.png" alt="AIRS 신규 기능 다크 나이트 GPS 자동 활성화">
-              <b>대안 1 다크 나이트</b>
-              <span>GPS 자동 활성화</span>
+              <img src="assets/new_features/variant_01_dark_night/04_gps_automation.png" alt="AIRS 16 GPS 자동 활성화 Night Premium">
+              <b>대안 1</b>
+              <span>Night Premium</span>
             </a>
             <a class="thumb" href="assets/new_features/variant_02_fresh_card/04_gps_automation.png" target="_blank">
-              <img src="assets/new_features/variant_02_fresh_card/04_gps_automation.png" alt="AIRS 신규 기능 프레시 카드 GPS 자동 활성화">
-              <b>대안 2 프레시 카드</b>
-              <span>GPS 자동 활성화</span>
+              <img src="assets/new_features/variant_02_fresh_card/04_gps_automation.png" alt="AIRS 16 GPS 자동 활성화 Fresh Card">
+              <b>대안 2</b>
+              <span>Fresh Card</span>
             </a>
             <a class="thumb" href="assets/new_features/variant_03_cozy_drawer/04_gps_automation.png" target="_blank">
-              <img src="assets/new_features/variant_03_cozy_drawer/04_gps_automation.png" alt="AIRS 신규 기능 코지 드로어 GPS 자동 활성화">
-              <b>대안 3 코지 드로어</b>
-              <span>GPS 자동 활성화</span>
+              <img src="assets/new_features/variant_03_cozy_drawer/04_gps_automation.png" alt="AIRS 16 GPS 자동 활성화 Cozy Drawer">
+              <b>대안 3</b>
+              <span>Cozy Drawer</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="compare-set">
+          <div class="compare-head">
+            <div>
+              <h3>17 온도 조절 페이지 대안</h3>
+              <p>향후 노드 상세 또는 제어 화면으로 확장할 때 사용할 수 있는 온도 게이지, 모드 선택, 조작 패턴을 비교합니다.</p>
+            </div>
+            <span class="tag">제어</span>
+          </div>
+          <div class="compare-grid">
+            <a class="thumb" href="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_17_06.png" target="_blank">
+              <img src="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_17_06.png" alt="AIRS 온도 조절 Gauge Control">
+              <b>온도 후보 1</b>
+              <span>Gauge Control</span>
+            </a>
+            <a class="thumb" href="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_19_49.png" target="_blank">
+              <img src="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_19_49.png" alt="AIRS 온도 조절 Trend Detail">
+              <b>온도 후보 2</b>
+              <span>Trend Detail</span>
+            </a>
+            <a class="thumb" href="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_56_02.png" target="_blank">
+              <img src="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_56_02.png" alt="AIRS 온도 조절 Cozy Wellness">
+              <b>온도 후보 3</b>
+              <span>Cozy Wellness</span>
+            </a>
+            <a class="thumb" href="assets/alternatives/temperature/chatgpt_image_2026_5_22_04_05_20.png" target="_blank">
+              <img src="assets/alternatives/temperature/chatgpt_image_2026_5_22_04_05_20.png" alt="AIRS 온도 조절 Mode Remote">
+              <b>온도 후보 4</b>
+              <span>Mode Remote</span>
+            </a>
+            <a class="thumb" href="assets/alternatives/temperature/chatgpt_image_2026_5_22_04_06_28.png" target="_blank">
+              <img src="assets/alternatives/temperature/chatgpt_image_2026_5_22_04_06_28.png" alt="AIRS 온도 조절 Hybrid Panel">
+              <b>온도 후보 5</b>
+              <span>Hybrid Panel</span>
             </a>
           </div>
         </article>
       </div>
-    </section>
-
-    <section class="section" aria-labelledby="temperature-title">
-      <h2 id="temperature-title">온도 조절 페이지 대안</h2>
-      <p class="section-subtitle">
-        `대안 UI들/온도 조절 페이지`에 모아둔 콘셉트 후보입니다. 향후 노드 상세 또는 제어 화면으로 확장할 수 있는
-        배치, 온도 게이지, 조작 패턴을 비교합니다.
-      </p>
-      <div class="gallery">
-        <a class="thumb" href="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_17_06.png" target="_blank">
-          <img src="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_17_06.png" alt="AIRS 온도 조절 대안 1">
-          <b>대안 UI들</b>
-          <span>온도 조절 대안 1</span>
-        </a>
-        <a class="thumb" href="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_19_49.png" target="_blank">
-          <img src="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_19_49.png" alt="AIRS 온도 조절 대안 2">
-          <b>대안 UI들</b>
-          <span>온도 조절 대안 2</span>
-        </a>
-        <a class="thumb" href="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_56_02.png" target="_blank">
-          <img src="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_56_02.png" alt="AIRS 온도 조절 대안 3">
-          <b>대안 UI들</b>
-          <span>온도 조절 대안 3</span>
-        </a>
-        <a class="thumb" href="assets/alternatives/temperature/chatgpt_image_2026_5_22_04_05_20.png" target="_blank">
-          <img src="assets/alternatives/temperature/chatgpt_image_2026_5_22_04_05_20.png" alt="AIRS 온도 조절 대안 4">
-          <b>대안 UI들</b>
-          <span>온도 조절 대안 4</span>
-        </a>
-        <a class="thumb" href="assets/alternatives/temperature/chatgpt_image_2026_5_22_04_06_28.png" target="_blank">
-          <img src="assets/alternatives/temperature/chatgpt_image_2026_5_22_04_06_28.png" alt="AIRS 온도 조절 대안 5">
-          <b>대안 UI들</b>
-          <span>온도 조절 대안 5</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="option-title">
-      <h2 id="option-title">디자인 옵션 장단점</h2>
-      <p class="section-subtitle">
-        아래 평가는 현재 이미지 기준의 빠른 판단입니다. 최종 선택 전에는 Android 구현 난이도, 팀 디자인 취향,
-        실제 기능 범위와 함께 다시 확인하면 좋습니다.
-      </p>
-      <div class="option-grid">
-        <article class="option-card">
-          <img src="assets/ui_with_icon/03_1_yes_node_list.png" alt="현재 AIRS 내 노드 펭귄 적용안">
-          <div class="option-body">
-            <h3>현재안: Friendly Mascot</h3>
-            <p>밝은 스마트홈 분위기와 펭귄 브랜드 요소가 가장 직접적으로 보이는 기준안입니다.</p>
-            <div class="pros-cons">
-              <div><b>장점</b>첫인상이 친근하고, 노드 목록/상태/추가 버튼이 직관적입니다.</div>
-              <div><b>단점</b>상단 이미지와 큰 CTA가 반복되면 실제 관리 앱보다는 홍보 이미지처럼 보일 수 있습니다.</div>
-            </div>
-          </div>
-        </article>
-
-        <article class="option-card">
-          <img src="assets/alternatives/login/chatgpt_image_2026_5_22_02_48_13.png" alt="AIRS 로그인 다크 프리미엄 대안">
-          <div class="option-body">
-            <h3>로그인 대안: Night Premium</h3>
-            <p>어두운 배경, 빛나는 공기 흐름, 글래스 카드로 프리미엄 이미지를 강조합니다.</p>
-            <div class="pros-cons">
-              <div><b>장점</b>브랜드 인상이 강하고, 팀원에게 “기존안과 다른 방향”을 보여주기 좋습니다.</div>
-              <div><b>단점</b>전체 앱을 다크 톤으로 밀지 않으면 다른 화면과 일관성 조정이 필요합니다.</div>
-            </div>
-          </div>
-        </article>
-
-        <article class="option-card">
-          <img src="assets/alternatives/login/chatgpt_image_2026_5_22_02_52_48.png" alt="AIRS 로그인 밝은 카드형 대안">
-          <div class="option-body">
-            <h3>로그인 대안: Fresh Card</h3>
-            <p>밝은 생활 이미지와 명확한 로그인 카드로 가장 안전한 온보딩 구성을 보여줍니다.</p>
-            <div class="pros-cons">
-              <div><b>장점</b>가독성과 사용성이 좋고, 현재안보다 정보 구조가 차분합니다.</div>
-              <div><b>단점</b>현재 밝은 방향과 크게 멀지는 않아 강한 대안성은 약할 수 있습니다.</div>
-            </div>
-          </div>
-        </article>
-
-        <article class="option-card">
-          <img src="assets/alternatives/node_list/chatgpt_image_2026_5_22_03_08_58.png" alt="AIRS 내 노드 대시보드 대안 1">
-          <div class="option-body">
-            <h3>내 노드 대안: Summary Grid</h3>
-            <p>상단 요약 지표와 2열 카드 배치를 사용해 관리 화면에 가까운 구조를 만듭니다.</p>
-            <div class="pros-cons">
-              <div><b>장점</b>총 노드, 연결됨, 불안정, 평균 신호가 한눈에 보여 운영 화면으로 설득력이 있습니다.</div>
-              <div><b>단점</b>이미지와 요약, 카드가 함께 있어 화면 밀도가 높아질 수 있습니다.</div>
-            </div>
-          </div>
-        </article>
-
-        <article class="option-card">
-          <img src="assets/alternatives/node_list/chatgpt_image_2026_5_22_03_13_59.png" alt="AIRS 내 노드 제어형 대안 2">
-          <div class="option-body">
-            <h3>내 노드 대안: Control Dashboard</h3>
-            <p>대표 노드를 크게 보여주고, 나머지 노드를 칩/카드로 전환하는 제어형 패턴입니다.</p>
-            <div class="pros-cons">
-              <div><b>장점</b>온도/습도/모드 같은 핵심 정보가 강하게 보이고, 앱의 차별성이 큽니다.</div>
-              <div><b>단점</b>현재 요구가 “노드 목록 관리”라면 특정 노드 제어 화면처럼 오해될 수 있습니다.</div>
-            </div>
-          </div>
-        </article>
-
-        <article class="option-card">
-          <img src="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_17_06.png" alt="AIRS 온도 조절 다크 게이지 대안">
-          <div class="option-body">
-            <h3>온도 조절 대안: Gauge Control</h3>
-            <p>큰 원형 온도 게이지와 상태 패널을 중심으로 한 제어 중심 화면입니다.</p>
-            <div class="pros-cons">
-              <div><b>장점</b>온도 조절 기능을 추가할 경우 가장 강한 시각적 기준점이 될 수 있습니다.</div>
-              <div><b>단점</b>현재 백엔드/앱 범위가 모니터링 중심이면 기능이 과해 보일 수 있습니다.</div>
-            </div>
-          </div>
-        </article>
-
-        <article class="option-card">
-          <img src="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_19_49.png" alt="AIRS 온도 추이 대안">
-          <div class="option-body">
-            <h3>온도 조절 대안: Trend Detail</h3>
-            <p>온도 추이 그래프와 평균/최저/최고 값을 보여주는 분석형 상세 화면입니다.</p>
-            <div class="pros-cons">
-              <div><b>장점</b>센서 데이터 앱이라는 정체성이 분명하고, 노드 상세 화면과 잘 맞습니다.</div>
-              <div><b>단점</b>첫 화면으로 쓰기에는 시각적 재미가 적고, 데이터가 적으면 빈약해 보일 수 있습니다.</div>
-            </div>
-          </div>
-        </article>
-
-        <article class="option-card">
-          <img src="assets/alternatives/temperature/chatgpt_image_2026_5_22_03_56_02.png" alt="AIRS 온도 조절 코지 웰니스 대안">
-          <div class="option-body">
-            <h3>온도 조절 대안: Cozy Wellness</h3>
-            <p>따뜻한 색감과 카드형 제어를 조합해 생활감 있는 스마트홈 화면을 만듭니다.</p>
-            <div class="pros-cons">
-              <div><b>장점</b>딱딱한 IoT 앱보다 사용자 친화적이고, 공기/쾌적함 이미지가 강합니다.</div>
-              <div><b>단점</b>AIRS의 블루-그린 정체성과 맞추려면 색상 조정이 필요합니다.</div>
-            </div>
-          </div>
-        </article>
-
-        <article class="option-card">
-          <img src="assets/alternatives/temperature/chatgpt_image_2026_5_22_04_06_28.png" alt="AIRS 온도 조절 하이브리드 대안">
-          <div class="option-body">
-            <h3>온도 조절 대안: Hybrid Panel</h3>
-            <p>상단 다크 제어 영역과 하단 밝은 패널을 나눠 기능을 많이 담는 방향입니다.</p>
-            <div class="pros-cons">
-              <div><b>장점</b>게이지, 상태, Wi-Fi 설정, 필터 정보까지 확장성이 좋습니다.</div>
-              <div><b>단점</b>한 화면에 기능이 많아 MVP 단계에서는 복잡하게 느껴질 수 있습니다.</div>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="review" aria-labelledby="review-title">
-      <h2 id="review-title">팀원 리뷰 포인트</h2>
-      <ul class="review-list">
-        <li>
-          <b>흐름이 자연스러운가?</b>
-          로그인부터 노드 등록, Bluetooth, Wi-Fi, 성공/실패 상태까지 이어지는지 확인합니다.
-        </li>
-        <li>
-          <b>정보 우선순위가 맞는가?</b>
-          온도, 습도, 연결 상태, 신호 강도, 업데이트 시간이 한눈에 들어오는지 봅니다.
-        </li>
-        <li>
-          <b>펭귄 아이콘이 어울리는가?</b>
-          AIRS 브랜드 요소로 자연스럽게 보이는지, 과하거나 산만하지 않은지 확인합니다.
-        </li>
-      </ul>
     </section>
 
     <footer>
-      AIRS Mobile UI Reference · 공유 전 Figma 보기 권한을 확인해주세요.
+      AIRS App UI Share Board · 01-17 화면 흐름 기준으로 정리됨
     </footer>
   </main>
 </body>
