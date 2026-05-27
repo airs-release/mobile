@@ -270,6 +270,56 @@
       color: var(--muted);
     }
 
+    .feature-map {
+      margin-top: 18px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 0 8px 24px rgba(20, 48, 80, 0.08);
+    }
+
+    .feature-map table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+    }
+
+    .feature-map th,
+    .feature-map td {
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .feature-map th {
+      color: #405168;
+      background: #f8fbfd;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .feature-map tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .feature-map td:first-child {
+      width: 84px;
+      color: #0c7067;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .feature-map td:nth-child(2) {
+      width: 210px;
+      font-weight: 900;
+    }
+
+    .feature-map td:nth-child(3) {
+      color: #405168;
+    }
+
     .comparison-list {
       display: grid;
       gap: 22px;
@@ -568,6 +618,44 @@
         2026-05-24 팀원 회의에서 정리한 아이디어입니다. 기존 LCD 온습도 표시와 예측 기능을 유지하면서,
         외부 센서·기상 API·사람 감지·GPS 자동화를 AIRS의 차별점으로 확장하는 방향입니다.
       </p>
+      <div class="feature-map" aria-label="신규 기능과 UI 번호 매핑">
+        <table>
+          <thead>
+            <tr>
+              <th>UI 번호</th>
+              <th>추가 UI</th>
+              <th>기능 목적</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>13</td>
+              <td>예측 대시보드</td>
+              <td>향후 20분 후 온습도 예측값을 보여주고, 현재 온도와 예측 온도를 비교해 에어컨을 미리 켤지 판단합니다.</td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>외부 온도 비교</td>
+              <td>기상청 API 또는 위치 기반 외부 온도를 가져와 실내 온도와 비교하고, 바깥 날씨 대비 방이 얼마나 더운지 보여줍니다.</td>
+            </tr>
+            <tr>
+              <td>15</td>
+              <td>부재중 온도 보호</td>
+              <td>사람이 없을 때도 방 온도가 너무 높아지면 식품이나 민감한 물품 보호를 위해 에어컨 동작 여부를 제안하거나 자동 제어합니다.</td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <td>GPS 자동 활성화</td>
+              <td>사용자가 집 근처 일정 거리 안에 들어오면 에어컨을 자동으로 켜고, 집 밖으로 나가면 끄기 알림을 제공합니다.</td>
+            </tr>
+            <tr>
+              <td>17</td>
+              <td>온도 조절 페이지 대안</td>
+              <td>노드 상세 이후 확장될 수 있는 직접 제어 화면 후보로, 온도 게이지와 모드·풍량·냉방 조작 패턴을 비교합니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div class="feature-grid">
         <div class="feature-card">
           <span class="logic-number">13</span>
