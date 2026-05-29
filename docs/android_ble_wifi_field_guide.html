@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AIRS BLE Wi-Fi Field Guide</title>
+  <style>
+    :root {
+      --bg: #f5f8fb;
+      --surface: #ffffff;
+      --text: #102033;
+      --muted: #66758a;
+      --line: #dce6ef;
+      --blue: #0875f5;
+      --teal: #23b7a8;
+      --green: #25c96f;
+      --orange: #f59e0b;
+      --red: #e5484d;
+      --purple: #6d5dfc;
+      --shadow: 0 18px 48px rgba(20, 48, 80, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      line-height: 1.58;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 38px 0 56px;
+    }
+
+    .hero,
+    .section,
+    .card,
+    .diagram-panel {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 28px;
+      align-items: center;
+      padding: 30px;
+      border-radius: 14px;
+      margin-bottom: 26px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 25px;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .lead {
+      margin: 18px 0 0;
+      color: #405168;
+      font-size: 18px;
+    }
+
+    .section {
+      margin-top: 24px;
+      padding: 26px;
+      border-radius: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: none;
+    }
+
+    .muted { color: var(--muted); }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(35, 183, 168, 0.14);
+      color: #0c7067;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .diagram-panel {
+      padding: 20px;
+      border-radius: 14px;
+      background: #ffffff;
+    }
+
+    .flow-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .step-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f8fbfd;
+    }
+
+    .num {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      font-weight: 900;
+    }
+
+    .ok { border-left: 5px solid var(--green); }
+    .warn { border-left: 5px solid var(--orange); }
+    .danger { border-left: 5px solid var(--red); }
+    .info { border-left: 5px solid var(--blue); }
+
+    .state {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 9px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .state.done {
+      background: rgba(37, 201, 111, 0.14);
+      color: #087a42;
+    }
+
+    .state.todo {
+      background: rgba(245, 158, 11, 0.16);
+      color: #9a5b00;
+    }
+
+    .state.partial {
+      background: rgba(8, 117, 245, 0.13);
+      color: #075bb9;
+    }
+
+    .flow-line {
+      margin: 16px 0 0;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f8fbfd;
+      overflow-x: auto;
+      color: #12304f;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      white-space: nowrap;
+    }
+
+    .trace-note {
+      margin: 12px 0 0;
+      padding: 14px 16px;
+      border-left: 5px solid var(--teal);
+      border-radius: 10px;
+      background: rgba(35, 183, 168, 0.1);
+      color: #24455a;
+    }
+
+    code {
+      padding: 2px 5px;
+      border-radius: 5px;
+      background: #edf3f8;
+      color: #12304f;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.94em;
+    }
+
+    ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+
+    li + li { margin-top: 4px; }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: #405168;
+      background: #f8fbfd;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    @media (max-width: 900px) {
+      .hero,
+      .grid,
+      .grid.two {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">AIRS Field Class</p>
+        <h1>BLE로 노드에 Wi-Fi 연결하기</h1>
+        <p class="lead">
+          팀원이 같은 그림을 보고 이해할 수 있도록, Android 앱이 BLE로 AIRS 노드에 SSID/PW를 전달하고
+          노드가 직접 Wi-Fi에 연결되는 실제 검증 절차를 단계별로 정리했습니다.
+        </p>
+      </div>
+
+      <div class="diagram-panel" aria-label="AIRS Wi-Fi provisioning flow">
+        <svg class="flow-svg" viewBox="0 0 900 420" role="img">
+          <defs>
+            <linearGradient id="blueGreen" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0875f5"/>
+              <stop offset="100%" stop-color="#23b7a8"/>
+            </linearGradient>
+            <linearGradient id="greenPurple" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#25c96f"/>
+              <stop offset="100%" stop-color="#6d5dfc"/>
+            </linearGradient>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#143050" flood-opacity="0.16"/>
+            </filter>
+          </defs>
+
+          <rect x="20" y="35" width="180" height="300" rx="28" fill="#ffffff" stroke="#dce6ef" filter="url(#shadow)"/>
+          <rect x="55" y="75" width="110" height="72" rx="14" fill="url(#blueGreen)"/>
+          <circle cx="110" cy="112" r="28" fill="#ffffff" opacity="0.2"/>
+          <path d="M110 88 L110 136 M92 105 L110 120 L128 105 M92 119 L110 104 L128 119" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect x="58" y="170" width="104" height="22" rx="11" fill="#eaf0f6"/>
+          <rect x="58" y="205" width="104" height="22" rx="11" fill="#eaf0f6"/>
+          <rect x="58" y="260" width="104" height="42" rx="14" fill="#0875f5"/>
+          <text x="110" y="365" text-anchor="middle" font-size="18" font-weight="800" fill="#102033">Android App</text>
+
+          <path d="M220 165 C260 115, 300 115, 340 165" stroke="#0875f5" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.55"/>
+          <path d="M245 185 C275 150, 305 150, 335 185" stroke="#0875f5" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.8"/>
+          <text x="280" y="235" text-anchor="middle" font-size="18" font-weight="800" fill="#0875f5">BLE</text>
+
+          <rect x="360" y="80" width="200" height="210" rx="24" fill="#ffffff" stroke="#dce6ef" filter="url(#shadow)"/>
+          <rect x="398" y="120" width="82" height="112" rx="12" fill="#102033"/>
+          <circle cx="417" cy="139" r="6" fill="#f59e0b"/>
+          <circle cx="461" cy="139" r="6" fill="#dce6ef"/>
+          <rect x="420" y="160" width="38" height="46" rx="6" fill="#f5f8fb"/>
+          <rect x="493" y="143" width="34" height="82" rx="12" fill="#f5f8fb" stroke="#dce6ef"/>
+          <circle cx="510" cy="158" r="5" fill="#66758a"/>
+          <path d="M505 185 L515 185 M505 200 L515 200 M505 215 L515 215" stroke="#66758a" stroke-width="4" stroke-linecap="round"/>
+          <text x="460" y="320" text-anchor="middle" font-size="18" font-weight="800" fill="#102033">AIRS Node</text>
+
+          <path d="M585 170 C630 120, 675 120, 720 170" stroke="#25c96f" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.55"/>
+          <path d="M612 190 C642 158, 672 158, 702 190" stroke="#25c96f" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.85"/>
+          <text x="650" y="235" text-anchor="middle" font-size="18" font-weight="800" fill="#0c7067">Wi-Fi</text>
+
+          <rect x="720" y="92" width="150" height="98" rx="22" fill="#ffffff" stroke="#dce6ef" filter="url(#shadow)"/>
+          <rect x="748" y="136" width="94" height="30" rx="12" fill="#edf3f8" stroke="#dce6ef"/>
+          <circle cx="770" cy="151" r="5" fill="#25c96f"/>
+          <circle cx="790" cy="151" r="5" fill="#25c96f"/>
+          <circle cx="810" cy="151" r="5" fill="#25c96f"/>
+          <text x="795" y="222" text-anchor="middle" font-size="18" font-weight="800" fill="#102033">Router</text>
+
+          <path d="M795 250 C795 290, 735 290, 735 326" stroke="#6d5dfc" stroke-width="6" stroke-dasharray="8 10" fill="none"/>
+          <path d="M795 250 C795 290, 850 290, 850 326" stroke="#f59e0b" stroke-width="6" stroke-dasharray="8 10" fill="none"/>
+
+          <rect x="646" y="318" width="180" height="64" rx="18" fill="#f7f3ff" stroke="#c7b9ff"/>
+          <circle cx="686" cy="350" r="20" fill="url(#greenPurple)"/>
+          <path d="M676 350 C682 336, 690 336, 696 350 C690 364, 682 364, 676 350Z" fill="#ffffff" opacity="0.9"/>
+          <text x="748" y="356" font-size="17" font-weight="800" fill="#102033">MQTT / Backend</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>1. 오늘 검증의 성공 기준</h2>
+      <div class="grid">
+        <div class="card info">
+          <span class="badge">앱 기준</span>
+          <h3>노드 검색</h3>
+          <p>앱 목록에 <code>AIRS-SETUP-XXXX</code> 노드가 나타나야 합니다.</p>
+        </div>
+        <div class="card info">
+          <span class="badge">BLE 기준</span>
+          <h3>GATT 연결</h3>
+          <p>앱이 AIRS Service UUID를 찾고 Wi-Fi Config Characteristic에 write해야 합니다.</p>
+        </div>
+        <div class="card ok">
+          <span class="badge">노드 기준</span>
+          <h3>Wi-Fi 연결</h3>
+          <p>노드가 전달받은 SSID/PW로 Wi-Fi에 연결되면 provisioning 성공입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>2. 현재 검증 상태</h2>
+      <p class="muted">
+        제품 구현 기준은 Android 휴대폰입니다. 현재 Android 휴대폰이 없을 때 Samsung 태블릿을 임시 테스트 장비로
+        사용할 수 있지만, 문서와 앱 흐름은 휴대폰 기준으로 유지합니다. 실제 AIRS 노드가 아직 없으므로 노드 advertising,
+        GATT 연결, Wi-Fi 연결, MQTT publish는 노드 확보 뒤 별도로 성공 확정해야 합니다.
+      </p>
+      <div class="grid two">
+        <div class="card ok">
+          <span class="badge">성공 확정</span>
+          <h3>노드 없이 검증한 것</h3>
+          <ul>
+            <li>Kotlin + Jetpack Compose Android 프로젝트 생성</li>
+            <li>MVVM + Repository 기반 Wi-Fi provisioning 흐름 구성</li>
+            <li>Android 휴대폰용 실제 Android BLE 권한 요청 화면 구현</li>
+            <li>Native Android BLE API 기반 scan, GATT connect, write, notify repository 구현</li>
+            <li>mock 노드 검색, 노드 선택, 연결 중, Wi-Fi 입력, 전송 중, 성공/실패 화면 전환</li>
+            <li>SSID/PW JSON payload 생성 및 비밀번호 masking preview</li>
+            <li>mock 성공 흐름: <code>received</code> -> <code>wifi_connecting</code> -> <code>wifi_connected</code></li>
+            <li>mock 실패 흐름: SSID에 <code>fail</code> 포함 시 <code>wifi_failed</code></li>
+            <li>단위 테스트와 debug build 검증</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <span class="badge">아직 미확정</span>
+          <h3>실물로 확인해야 하는 것</h3>
+          <ul>
+            <li>Android 휴대폰에서 앱 설치, 권한 승인, Bluetooth ON 상태 확인</li>
+            <li>Android 휴대폰에서 실제 AIRS 노드 BLE scan 결과가 표시되는지</li>
+            <li>AIRS 노드 advertising 이름과 Service UUID 일치 여부</li>
+            <li>GATT 연결, service discovery, characteristic property 확인</li>
+            <li>Wi-Fi Config Characteristic에 실제 JSON write 성공 여부</li>
+            <li>Status Characteristic notify로 <code>wifi_connected</code>/<code>wifi_failed</code> 수신 여부</li>
+            <li>노드가 전달받은 SSID/PW로 실제 2.4GHz Wi-Fi에 연결되는지</li>
+            <li>Wi-Fi 연결 이후 MQTT broker/backend/InfluxDB로 sensor data가 들어오는지</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>3. 성공 흐름: 실제 코드 추적</h2>
+      <p class="muted">
+        아래 표는 AIRS 앱이 노드 BLE를 발견하고, GATT로 연결한 뒤, Wi-Fi 정보를 write하고,
+        노드가 <code>wifi_connected</code>를 notify했을 때 어떤 코드가 어떤 UI를 보여주는지 따라가는 지도입니다.
+        Samsung 태블릿으로 임시 테스트해도 앱 내부 흐름은 동일합니다.
+      </p>
+      <div class="flow-line">
+        MainActivity -> ProvisioningRoute -> ProvisioningScreen -> ProvisioningViewModel -> AndroidBleProvisioningRepository -> BluetoothLeScanner/BluetoothGatt -> AIRS Node -> status notify -> ProvisioningViewModel -> ResultContent
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>흐름</th>
+              <th>실제 코드 위치</th>
+              <th>사용되는 함수/변수</th>
+              <th>보이는 UI / 디버깅 기준</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>앱 시작과 권한 확인</td>
+              <td><code>mobile/android/app/src/main/java/com/airs/android/MainActivity.kt</code></td>
+              <td><code>blePermissionsGranted</code>, <code>blePermissionLauncher</code>, <code>BleRuntimePermissions.hasAll()</code></td>
+              <td>권한이 없으면 <code>BlePermissionScreen</code>이 보입니다. Bluetooth 권한 허용 후 provisioning 화면으로 넘어가야 합니다.</td>
+            </tr>
+            <tr>
+              <td>권한 화면</td>
+              <td><code>provisioning/ui/BlePermissionScreen.kt</code></td>
+              <td><code>BlePermissionScreen(onRequestPermissions)</code></td>
+              <td><code>Bluetooth 권한 필요</code> 카드와 <code>Bluetooth 권한 허용</code> 버튼이 보입니다. 버튼은 <code>MainActivity.requestBlePermissions()</code>로 이어집니다.</td>
+            </tr>
+            <tr>
+              <td>첫 화면 표시</td>
+              <td><code>MainActivity.kt</code>, <code>provisioning/ui/ProvisioningScreen.kt</code></td>
+              <td><code>ProvisioningRoute(viewModel)</code>, <code>ProvisioningScreen()</code>, <code>uiState.step</code></td>
+              <td><code>uiState.step == Start</code>이면 <code>StartContent</code>가 보이고, 사용자는 <code>AIRS 노드 검색 시작</code> 버튼을 누릅니다.</td>
+            </tr>
+            <tr>
+              <td>검색 버튼 클릭</td>
+              <td><code>ProvisioningScreen.kt</code>, <code>ProvisioningViewModel.kt</code></td>
+              <td><code>StartContent(onStartScan)</code>, <code>viewModel.startScan()</code>, <code>uiState = ProvisioningUiState(step = Scanning)</code></td>
+              <td>화면은 <code>ScanningContent</code>로 바뀌고 <code>BLE 스캔 중</code> progress bar가 보입니다.</td>
+            </tr>
+            <tr>
+              <td>실제 BLE scan 시작</td>
+              <td><code>provisioning/data/AndroidBleProvisioningRepository.kt</code></td>
+              <td><code>scanForNodes()</code>, <code>BluetoothLeScanner.startScan()</code>, <code>ScanCallback.onScanResult()</code></td>
+              <td>Android BLE API가 주변 advertising을 받습니다. 노드가 없으면 <code>SCAN_TIMEOUT_MILLIS</code> 뒤 실패 메시지가 나오는 것이 정상입니다.</td>
+            </tr>
+            <tr>
+              <td>AIRS 노드 필터링</td>
+              <td><code>AndroidBleProvisioningRepository.kt</code>, <code>AirsBleConstants.kt</code></td>
+              <td><code>ScanResult.toAirsNode()</code>, <code>NODE_NAME_PREFIX</code>, <code>PROVISIONING_SERVICE_UUID</code>, <code>AirsBleNode</code></td>
+              <td>노드 이름이 <code>AIRS-SETUP-</code>로 시작하거나 Service UUID가 맞으면 <code>AirsBleNode</code>로 변환됩니다.</td>
+            </tr>
+            <tr>
+              <td>노드 목록 UI 표시</td>
+              <td><code>ProvisioningViewModel.kt</code>, <code>ProvisioningScreen.kt</code></td>
+              <td><code>repository.scanForNodes().collect { nodes }</code>, <code>uiState.nodes</code>, <code>NodeListContent</code>, <code>NodeCard</code></td>
+              <td><code>uiState.step == NodeList</code>가 되고 발견된 <code>AIRS-SETUP-XXXX</code> 카드가 보입니다.</td>
+            </tr>
+            <tr>
+              <td>노드 선택과 GATT 연결</td>
+              <td><code>ProvisioningScreen.kt</code>, <code>ProvisioningViewModel.kt</code>, <code>AndroidBleProvisioningRepository.kt</code></td>
+              <td><code>NodeCard(onNodeSelected)</code>, <code>selectNode(node)</code>, <code>connect(node)</code>, <code>device.connectGatt()</code></td>
+              <td>화면은 <code>ConnectingContent</code>로 바뀝니다. 연결 실패 시 실패 화면과 오류 메시지가 보입니다.</td>
+            </tr>
+            <tr>
+              <td>Service/Characteristic 확인</td>
+              <td><code>AndroidBleProvisioningRepository.kt</code>, <code>AirsBleConstants.kt</code></td>
+              <td><code>onConnectionStateChange()</code>, <code>discoverServices()</code>, <code>onServicesDiscovered()</code>, <code>cacheAirsCharacteristics()</code></td>
+              <td>AIRS Service, Wi-Fi Config Characteristic, Provision Status Characteristic을 찾으면 <code>WifiInput</code> 화면으로 이동합니다.</td>
+            </tr>
+            <tr>
+              <td>Wi-Fi 정보 입력</td>
+              <td><code>ProvisioningScreen.kt</code>, <code>ProvisioningViewModel.kt</code></td>
+              <td><code>WifiNetworkPicker</code>, <code>loadWifiNetworks()</code>, <code>selectWifiNetwork()</code>, <code>uiState.ssid</code>, <code>uiState.password</code></td>
+              <td>현재/주변 Wi-Fi SSID 후보를 보여주고, 사용자가 선택하면 SSID가 채워집니다. Android는 저장된 Wi-Fi 비밀번호를 앱에 제공하지 않으므로 비밀번호는 직접 입력해야 합니다.</td>
+            </tr>
+            <tr>
+              <td>Wi-Fi payload 전송</td>
+              <td><code>ProvisioningViewModel.kt</code>, <code>WifiConfigPayload.kt</code>, <code>AndroidBleProvisioningRepository.kt</code></td>
+              <td><code>sendWifiConfig()</code>, <code>WifiCredentials</code>, <code>WifiConfigPayload.build()</code>, <code>provisionWifi()</code>, <code>writeWifiPayload()</code></td>
+              <td>화면은 <code>ProvisioningProgressContent</code>로 바뀝니다. 앱은 <code>{"ssid":"...","password":"..."}</code> JSON을 Wi-Fi Config characteristic에 write합니다.</td>
+            </tr>
+            <tr>
+              <td>Status notify 수신</td>
+              <td><code>AndroidBleProvisioningRepository.kt</code>, <code>ProvisioningViewModel.kt</code></td>
+              <td><code>enableStatusNotifications()</code>, <code>onCharacteristicChanged()</code>, <code>handleStatusBytes()</code>, <code>toProvisioningStatus()</code>, <code>collect { status }</code></td>
+              <td>노드가 <code>received</code>, <code>wifi_connecting</code>, <code>wifi_connected</code>를 보내면 <code>StatusList</code>에 순서대로 쌓입니다.</td>
+            </tr>
+            <tr>
+              <td>성공/실패 화면 결정</td>
+              <td><code>ProvisioningViewModel.kt</code>, <code>ProvisioningScreen.kt</code></td>
+              <td><code>when (status.type)</code>, <code>ProvisioningStatusType.WifiConnected</code>, <code>ProvisioningStep.Success</code>, <code>ResultContent</code></td>
+              <td><code>wifi_connected</code>를 받으면 <code>Wi-Fi 설정 완료</code> 화면이 보입니다. <code>wifi_failed</code>를 받으면 실패 화면이 보입니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="trace-note">
+        디버깅할 때는 화면이 멈춘 위치를 먼저 보고, 그 위치의 <code>uiState.step</code>과 위 표의 해당 함수부터 확인하면 됩니다.
+        예를 들어 노드 목록이 안 뜨면 <code>scanForNodes()</code>, <code>onScanResult()</code>, <code>toAirsNode()</code>,
+        <code>uiState.nodes</code> 순서로 보면 됩니다.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>4. 개발/검증 로드맵 현황</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>순서</th>
+              <th>Step</th>
+              <th>상태</th>
+              <th>이번 프로젝트에서의 의미</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Android 프로젝트 생성</td>
+              <td><span class="state done">진행완료</span></td>
+              <td>Kotlin, Jetpack Compose, Kotlin DSL 기반 프로젝트를 만들고 debug build 가능한 상태로 정리했습니다.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>앱 구조 결정</td>
+              <td><span class="state done">진행완료</span></td>
+              <td>MVVM + Repository 구조로 UI, 상태 관리, BLE 기능 경계를 나눴습니다.</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>BLE 계약과 payload 초안 정리</td>
+              <td><span class="state partial">초안완료</span></td>
+              <td>Service UUID, Wi-Fi Config write, Provision Status notify, JSON payload 형식을 문서화했습니다. 최종 확정은 HW firmware와 맞춰야 합니다.</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Mock으로 앱 흐름 구현</td>
+              <td><span class="state done">진행완료</span></td>
+              <td>실제 BLE 없이도 노드 검색부터 Wi-Fi 연결 성공/실패 화면까지 앱 내부 흐름을 확인할 수 있습니다.</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Mock/상태/payload 테스트 작성</td>
+              <td><span class="state done">진행완료</span></td>
+              <td>ViewModel 상태 전환, mock repository 성공/실패, payload 생성 로직을 테스트로 검증했습니다.</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Android 휴대폰 실기기 기준 확정</td>
+              <td><span class="state done">진행완료</span></td>
+              <td>제품 구현과 문서 기준은 Android 휴대폰으로 유지합니다. Samsung 태블릿은 임시 테스트 장비로만 사용합니다.</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Android 휴대폰 개발자 옵션/USB debugging 확인</td>
+              <td><span class="state todo">아직미진행</span></td>
+              <td>Android Studio에서 휴대폰을 실행 대상으로 잡기 위해 개발자 옵션과 USB debugging을 켭니다.</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>실제 Android BLE Repository 작성</td>
+              <td><span class="state done">진행완료</span></td>
+              <td>Native Android BLE API wrapper로 scan, GATT connect, characteristic write, status notify 수신을 구현했습니다.</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>Android BLE 권한 처리 구현</td>
+              <td><span class="state done">진행완료</span></td>
+              <td><code>BLUETOOTH_SCAN</code>, <code>BLUETOOTH_CONNECT</code>, 구버전 위치 권한 요청을 앱 시작 화면에 연결했습니다.</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>실제 AIRS node 확보</td>
+              <td><span class="state todo">아직미진행</span></td>
+              <td>실제 노드가 확보되면 node firmware와 앱의 BLE 계약을 직접 맞춥니다.</td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>HW팀 firmware 사전 점검</td>
+              <td><span class="state todo">아직미진행</span></td>
+              <td>노드 advertising, UUID, characteristic property, JSON parser, Wi-Fi 실패 notify를 먼저 확인합니다.</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>Android 휴대폰 + 노드 BLE scan 검증</td>
+              <td><span class="state todo">아직미진행</span></td>
+              <td>앱 목록에 <code>AIRS-SETUP-XXXX</code>가 실제로 나타나는지 확인합니다.</td>
+            </tr>
+            <tr>
+              <td>13</td>
+              <td>GATT 연결과 characteristic 검증</td>
+              <td><span class="state todo">아직미진행</span></td>
+              <td>앱이 AIRS Provisioning Service를 발견하고 write/notify characteristic을 사용할 수 있는지 확인합니다.</td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>BLE로 Wi-Fi 정보 전달 end-to-end 검증</td>
+              <td><span class="state todo">아직미진행</span></td>
+              <td>앱에서 SSID/PW를 보내고 노드가 <code>wifi_connected</code> 또는 <code>wifi_failed</code>를 알려주는지 확인합니다.</td>
+            </tr>
+            <tr>
+              <td>15</td>
+              <td>후속 MQTT/backend 검증</td>
+              <td><span class="state todo">아직미진행</span></td>
+              <td>Wi-Fi 연결 이후 sensor data publish가 되는지 broker/backend/InfluxDB에서 별도 확인합니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>5. Samsung 태블릿 임시 실행 Step</h2>
+      <p class="muted">
+        AIRS 앱의 제품 기준은 Android 휴대폰입니다. 다만 노드 확보 전까지 Samsung 태블릿을 임시 실기기 장비로 사용해
+        앱 설치, 권한 승인, 실제 BLE scan 실패 처리, 기본 화면 동작을 확인할 수 있습니다.
+      </p>
+      <div class="step-list">
+        <div class="step">
+          <div class="num">1</div>
+          <div>
+            <h3>Samsung 태블릿에서 개발자 옵션 켜기</h3>
+            <p>태블릿의 설정 앱에서 개발자 옵션을 활성화합니다.</p>
+            <ul>
+              <li>경로 예시: <code>설정 -> 태블릿 정보 -> 소프트웨어 정보 -> 빌드번호</code>를 여러 번 누릅니다.</li>
+              <li>성공 기준: 설정 화면에 <code>개발자 옵션</code> 메뉴가 새로 나타납니다.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <div>
+            <h3>USB debugging 켜고 Mac에 연결하기</h3>
+            <p>개발자 옵션에서 USB debugging을 켠 뒤 USB 케이블로 MacBook과 태블릿을 연결합니다.</p>
+            <ul>
+              <li>태블릿에 <code>USB 디버깅을 허용하시겠습니까?</code> 창이 뜨면 허용합니다.</li>
+              <li>성공 기준: Android Studio의 기기 선택 영역에 태블릿 이름이 표시됩니다.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <div>
+            <h3>Android Studio에서 태블릿 선택하기</h3>
+            <p>상단 device dropdown에서 <code>No Devices</code> 대신 연결된 Samsung 태블릿을 선택합니다.</p>
+            <ul>
+              <li>실행 configuration은 <code>app</code>을 유지합니다.</li>
+              <li>기기가 안 보이면 케이블, USB debugging, 태블릿의 연결 허용 창을 다시 확인합니다.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">4</div>
+          <div>
+            <h3>Run 버튼으로 앱 설치/실행하기</h3>
+            <p>Android Studio의 초록색 Run 버튼을 누르면 debug APK가 빌드되고 태블릿에 설치된 뒤 자동 실행됩니다.</p>
+            <ul>
+              <li>이 과정은 파일을 수동으로 복사하는 것이 아니라 Android Studio가 ADB로 앱을 설치하는 흐름입니다.</li>
+              <li>성공 기준: 태블릿 화면에 <code>AIRS Wi-Fi Provisioning</code> 앱 화면이 나타납니다.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">5</div>
+          <div>
+            <h3>태블릿에서 앱이 뜨면 확인할 것</h3>
+            <p>노드가 없는 현재는 실패 화면까지 가는 것이 정상 결과입니다.</p>
+            <ul>
+              <li>Bluetooth, Wi-Fi, 위치 권한 요청이 나오면 허용합니다.</li>
+              <li><code>AIRS 노드 검색 시작</code>을 눌렀을 때 BLE scan 중 화면이 보이는지 확인합니다.</li>
+              <li>노드가 없으면 timeout 뒤 <code>AIRS 노드를 찾지 못했습니다</code>류의 실패 메시지가 나오는지 확인합니다.</li>
+              <li>검색 실패 화면에서는 <code>다시 검색</code>만 보이고, 선택된 노드가 없으므로 <code>Wi-Fi 다시 입력</code>은 보이지 않아야 합니다.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>6. 노드 이름이 다를 때 수정 위치</h2>
+      <p class="muted">
+        현재 앱은 AIRS 노드를 찾을 때 Service UUID가 맞거나, BLE advertising 이름이 <code>AIRS-SETUP-</code>로 시작하면
+        AIRS 노드로 판단합니다. 실제 firmware의 노드 이름이 예를 들어 <code>abc</code>라면 아래 위치를 확인합니다.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>수정/확인 위치</th>
+              <th>현재 기준</th>
+              <th>노드 이름이 <code>abc</code>라면</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>mobile/android/app/src/main/java/com/airs/android/provisioning/data/AirsBleConstants.kt</code></td>
+              <td><code>NODE_NAME_PREFIX = "AIRS-SETUP-"</code></td>
+              <td><code>NODE_NAME_PREFIX = "abc"</code> 또는 firmware 이름 규칙에 맞는 prefix로 바꿉니다. 빈 문자열로 두면 거의 모든 BLE 기기가 매칭될 수 있으므로 피합니다.</td>
+            </tr>
+            <tr>
+              <td><code>mobile/android/app/src/main/java/com/airs/android/provisioning/data/AndroidBleProvisioningRepository.kt</code></td>
+              <td><code>ScanResult.toAirsNode()</code>가 <code>startsWith(NODE_NAME_PREFIX)</code>를 사용합니다.</td>
+              <td>대부분 수정하지 않습니다. 이름이 여러 패턴이면 이 함수의 filter 조건만 좁게 확장합니다.</td>
+            </tr>
+            <tr>
+              <td><code>mobile/android/app/src/main/java/com/airs/android/provisioning/data/MockBleProvisioningRepository.kt</code></td>
+              <td>mock 표시 이름이 <code>AIRS-SETUP-0001</code>입니다.</td>
+              <td>실제 이름과 맞춰 데모하고 싶을 때만 mock displayName을 바꿉니다. 실제 BLE scan에는 영향이 없습니다.</td>
+            </tr>
+            <tr>
+              <td>firmware BLE advertising 설정</td>
+              <td>앱은 Service UUID 또는 이름 prefix 중 하나가 맞으면 노드로 봅니다.</td>
+              <td>가장 안정적인 방법은 firmware가 앱과 같은 <code>PROVISIONING_SERVICE_UUID</code>를 advertising에 포함하는 것입니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>7. 실제 테스트 Step</h2>
+      <div class="step-list">
+        <div class="step">
+          <div class="num">1</div>
+          <div>
+            <h3>노드를 설정 모드로 켜기</h3>
+            <p>노드가 아직 Wi-Fi를 모르거나 버튼 입력으로 설정 모드에 들어가야 합니다.</p>
+            <ul>
+              <li>성공 기준: 노드 serial log에 BLE advertising 시작 로그가 보입니다.</li>
+              <li>예상 이름: <code>AIRS-SETUP-XXXX</code></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <div>
+            <h3>Android 앱 설치 및 실행</h3>
+            <p>Android Studio에서 Android 휴대폰을 선택하고 debug 앱을 실행합니다. 현재 휴대폰이 없으면 Samsung 태블릿으로 임시 대체 테스트할 수 있습니다.</p>
+            <ul>
+              <li>휴대폰에서 Bluetooth를 켭니다.</li>
+              <li>앱 권한 요청이 나오면 Bluetooth 관련 권한을 허용합니다.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <div>
+            <h3>BLE scan 확인</h3>
+            <p>앱에서 노드 검색을 시작하고 목록에 노드가 나타나는지 확인합니다.</p>
+            <ul>
+              <li>성공 기준: <code>AIRS-SETUP-XXXX</code>가 앱 목록에 표시됩니다.</li>
+              <li>실패 시: 노드 advertising, Service UUID, Android 권한을 확인합니다.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">4</div>
+          <div>
+            <h3>노드 선택 후 GATT 연결</h3>
+            <p>앱에서 노드를 선택하고 GATT 연결 및 service discovery가 되는지 확인합니다.</p>
+            <ul>
+              <li>성공 기준: AIRS Provisioning Service UUID가 발견됩니다.</li>
+              <li>확인 대상: Device Info, Wi-Fi Config, Provision Status characteristic.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">5</div>
+          <div>
+            <h3>SSID/PW 입력 후 BLE write</h3>
+            <p>앱에서 Wi-Fi 정보를 입력하고 노드에 JSON payload를 write합니다.</p>
+            <ul>
+              <li>성공 기준: 노드 serial log에 payload 수신 또는 <code>received</code> 상태가 보입니다.</li>
+              <li>주의: 비밀번호 원문은 앱 로그나 노드 로그에 남기지 않습니다.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">6</div>
+          <div>
+            <h3>노드 Wi-Fi 연결 확인</h3>
+            <p>노드가 전달받은 SSID/PW로 Wi-Fi 접속을 시도합니다.</p>
+            <ul>
+              <li>성공 기준: 앱에 <code>wifi_connected</code> 상태가 표시됩니다.</li>
+              <li>실패 기준: 앱에 <code>wifi_failed</code> 상태가 표시되고 재입력이 가능합니다.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">7</div>
+          <div>
+            <h3>후속 확인: MQTT publish</h3>
+            <p>Wi-Fi 연결 이후 노드 firmware가 MQTT publish를 수행하는지 별도 기능으로 확인합니다.</p>
+            <ul>
+              <li>이 단계는 Wi-Fi provisioning 성공 조건이 아니라 후속 시스템 검증입니다.</li>
+              <li>broker/backend/InfluxDB에서 sensor data 유입 여부를 확인합니다.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>8. HW팀과 사전 점검할 것</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>점검 질문</th>
+              <th>확인 방법</th>
+              <th>막혔을 때 의심 지점</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>노드가 BLE 신호를 발송하나요?</td>
+              <td>노드 serial log 또는 nRF Connect 같은 BLE scanner 앱으로 확인</td>
+              <td>설정 모드 미진입, BLE advertising 미시작</td>
+            </tr>
+            <tr>
+              <td>노드 이름이 약속과 맞나요?</td>
+              <td><code>AIRS-SETUP-XXXX</code> 형태인지 확인</td>
+              <td>앱 filter와 firmware 이름 규칙 불일치</td>
+            </tr>
+            <tr>
+              <td>Service UUID가 앱 문서와 같나요?</td>
+              <td>firmware의 BLE service UUID와 앱 문서 비교</td>
+              <td>UUID 오타, 대소문자보다 값 자체 불일치</td>
+            </tr>
+            <tr>
+              <td>Wi-Fi Config Characteristic이 write 가능한가요?</td>
+              <td>GATT characteristic property 확인</td>
+              <td>WRITE property 누락, write with response 미지원</td>
+            </tr>
+            <tr>
+              <td>Status Characteristic이 notify 가능한가요?</td>
+              <td>CCCD 설정과 notify property 확인</td>
+              <td>NOTIFY property 누락, descriptor 설정 누락</td>
+            </tr>
+            <tr>
+              <td>payload 형식이 JSON으로 합의됐나요?</td>
+              <td><code>{"ssid":"...","password":"..."}</code> 파싱 확인</td>
+              <td>펌웨어 parser 형식 불일치, escaping 처리 미흡</td>
+            </tr>
+            <tr>
+              <td>노드가 2.4GHz Wi-Fi에 붙을 수 있나요?</td>
+              <td>테스트 공유기 대역 확인</td>
+              <td>ESP32 계열은 보통 5GHz Wi-Fi 미지원</td>
+            </tr>
+            <tr>
+              <td>Wi-Fi 연결 결과를 BLE로 알려주나요?</td>
+              <td><code>received</code>, <code>wifi_connecting</code>, <code>wifi_connected</code>, <code>wifi_failed</code> notify 확인</td>
+              <td>앱은 성공/실패를 알 수 없어서 계속 대기</td>
+            </tr>
+            <tr>
+              <td>실패 시 재설정 모드로 돌아오나요?</td>
+              <td>잘못된 PW 입력 후 다시 advertising 되는지 확인</td>
+              <td>실패 후 BLE 끊김, 재시도 불가</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>9. 현장 기록 양식</h2>
+      <div class="grid two">
+        <div class="card info">
+          <h3>성공 로그</h3>
+          <ul>
+            <li>휴대폰 모델 / Android 버전</li>
+            <li>노드 firmware 버전</li>
+            <li>발견된 BLE 이름</li>
+            <li>연결 성공 시각</li>
+            <li><code>wifi_connected</code> 수신 여부</li>
+          </ul>
+        </div>
+        <div class="card warn">
+          <h3>실패 로그</h3>
+          <ul>
+            <li>어느 단계에서 실패했는지</li>
+            <li>앱 화면 상태</li>
+            <li>노드 serial log</li>
+            <li>사용한 SSID 대역</li>
+            <li>재시도 가능 여부</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
