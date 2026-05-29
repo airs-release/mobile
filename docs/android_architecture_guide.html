@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AIRS Android Architecture Guide</title>
+  <style>
+    :root {
+      --bg: #f5f8fb;
+      --surface: #ffffff;
+      --surface-soft: #eef7f7;
+      --text: #102033;
+      --muted: #66758a;
+      --line: #dce6ef;
+      --blue: #0875f5;
+      --teal: #23b7a8;
+      --green: #25c96f;
+      --purple: #6d5dfc;
+      --orange: #f59e0b;
+      --red: #e5484d;
+      --code-bg: #101827;
+      --shadow: 0 18px 48px rgba(20, 48, 80, 0.12);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--blue);
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 38px 0 60px;
+    }
+
+    .hero,
+    .section,
+    .callout,
+    .card,
+    .table-wrap {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: center;
+      padding: 30px;
+      border-radius: var(--radius);
+      margin-bottom: 26px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .lead {
+      margin: 18px 0 0;
+      color: #405168;
+      font-size: 18px;
+    }
+
+    .hero img,
+    .reference-image {
+      display: block;
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    .section {
+      margin-top: 24px;
+      padding: 26px;
+      border-radius: var(--radius);
+    }
+
+    .section h2 {
+      margin: 0 0 10px;
+      font-size: 26px;
+      letter-spacing: 0;
+    }
+
+    .section h3 {
+      margin: 22px 0 10px;
+      font-size: 19px;
+      letter-spacing: 0;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: none;
+    }
+
+    .card h3,
+    .card h4 {
+      margin: 0 0 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(35, 183, 168, 0.14);
+      color: #0c7067;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .stack-flow,
+    .app-flow {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .stack-flow {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .app-flow {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .flow-node {
+      min-height: 106px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f8fbfd;
+      position: relative;
+    }
+
+    .flow-node::after {
+      content: ">";
+      position: absolute;
+      right: -13px;
+      top: 40%;
+      color: var(--muted);
+      font-weight: 900;
+    }
+
+    .flow-node:last-child::after {
+      content: "";
+    }
+
+    .flow-node b {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .flow-node span {
+      color: #405168;
+      font-size: 13px;
+    }
+
+    .blue { border-color: rgba(8, 117, 245, 0.35); }
+    .teal { border-color: rgba(35, 183, 168, 0.35); }
+    .green { border-color: rgba(37, 201, 111, 0.35); }
+    .purple { border-color: rgba(109, 93, 252, 0.35); }
+    .orange { border-color: rgba(245, 158, 11, 0.35); }
+
+    .callout {
+      margin-top: 18px;
+      padding: 18px;
+      border-left: 5px solid var(--blue);
+      border-radius: 10px;
+      box-shadow: none;
+    }
+
+    code {
+      padding: 2px 5px;
+      border-radius: 5px;
+      background: #edf3f8;
+      color: #12304f;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.94em;
+    }
+
+    pre {
+      overflow-x: auto;
+      margin: 12px 0 0;
+      padding: 16px;
+      border-radius: 10px;
+      color: #e8eef8;
+      background: var(--code-bg);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    pre code {
+      padding: 0;
+      color: inherit;
+      background: transparent;
+    }
+
+    .table-wrap {
+      margin-top: 14px;
+      overflow-x: auto;
+      border-radius: 10px;
+      box-shadow: none;
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f8fbfd;
+      color: #405168;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td:first-child {
+      width: 120px;
+      color: #0c7067;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .code-line td:first-child {
+      width: 80px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-weight: 700;
+    }
+
+    .code-line td:nth-child(2) {
+      min-width: 330px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: #12304f;
+      background: #fbfdff;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .check {
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f8fbfd;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .grid,
+      .grid.three,
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .stack-flow,
+      .app-flow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 24px, 1180px);
+        padding-top: 22px;
+      }
+
+      .stack-flow,
+      .app-flow {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-node::after {
+        content: "";
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">AIRS Android Study Guide</p>
+        <h1>Wi-Fi Provisioning 앱 아키텍처</h1>
+        <p class="lead">
+          Android 휴대폰을 실제 제품 기준으로 두고, Kotlin + Jetpack Compose + MVVM + Repository 구조로
+          Wi-Fi provisioning 앱을 설명합니다. mock BLE 흐름으로 앱 내부 상태를 검증하고,
+          실제 실행 경로에는 Native BLE 구현을 연결했습니다.
+        </p>
+      </div>
+      <img src="assets/architecture/android-wifi-provisioning-architecture.png" alt="AIRS Android Wi-Fi provisioning architecture illustration">
+    </section>
+
+    <section class="section">
+      <h2>1. 지금 구현한 범위</h2>
+      <p class="muted">
+        구현 기준은 Android 휴대폰입니다. 현재 Android 휴대폰이 없으면 Samsung 태블릿을 임시 테스트 장비로 사용할 수 있지만,
+        앱 구조와 사용자 흐름은 휴대폰 기준으로 유지합니다. AIRS 노드가 없을 때는 mock repository와 단위 테스트로 앱 내부
+        흐름을 검증하고, 노드 확보 후 실제 scan/GATT/write/notify를 확정합니다.
+      </p>
+      <div class="grid three">
+        <div class="card blue">
+          <span class="badge">가능</span>
+          <h3>노드 없이 구현</h3>
+          <p>Compose 화면, ViewModel 상태, Repository 계약, Mock BLE 흐름, Wi-Fi JSON payload 생성.</p>
+        </div>
+        <div class="card orange">
+          <span class="badge">보류</span>
+          <h3>휴대폰으로 검증</h3>
+          <p>Bluetooth 권한 실제 동작, 실제 BLE scan 시작, 앱 설치와 runtime permission 흐름.</p>
+        </div>
+        <div class="card green">
+          <span class="badge">최종</span>
+          <h3>휴대폰 + 노드 필요</h3>
+          <p>AIRS 노드 Wi-Fi 연결, MQTT publish, backend 또는 broker에서 end-to-end 확인.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>2. 전체 시스템에서 Android 앱의 위치</h2>
+      <p class="muted">
+        기존 backend 아키텍처에서는 ESP32 노드가 Wi-Fi에 연결되어 MQTT Broker로 sensor data를 publish합니다.
+        이번 Android 작업은 그 이전 단계, 즉 노드가 Wi-Fi 정보를 모를 때 앱이 BLE로 초기 설정값을 전달하는 부분입니다.
+      </p>
+      <img class="reference-image" src="assets/architecture/backend-system-architecture.png" alt="AIRS backend system architecture reference">
+      <div class="callout">
+        <b>핵심 연결:</b>
+        <code>Android 앱 -> BLE -> AIRS 노드 -> Wi-Fi -> MQTT Broker -> Spring Boot Backend -> InfluxDB/MySQL</code>
+      </div>
+      <div class="callout">
+        더 자세한 구현 목적, AIRS 실제 동작 예시, Kotlin line-by-line 설명은
+        <a href="android_implementation_walkthrough.md" target="_blank">Android 구현 Walkthrough</a>에 정리했습니다.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>3. 기술 스택과 도구가 연결되는 방식</h2>
+      <div class="stack-flow">
+        <div class="flow-node blue">
+          <b>Android Studio</b>
+          <span>프로젝트 생성, 코드 편집, Gradle Sync, 실행, 디버깅을 담당합니다.</span>
+        </div>
+        <div class="flow-node purple">
+          <b>Gradle</b>
+          <span>Kotlin/Compose 의존성을 받고 APK를 빌드합니다.</span>
+        </div>
+        <div class="flow-node teal">
+          <b>Kotlin</b>
+          <span>앱의 화면 상태, BLE 흐름, payload 생성 로직을 작성하는 언어입니다.</span>
+        </div>
+        <div class="flow-node green">
+          <b>Jetpack Compose</b>
+          <span>상태가 바뀌면 화면을 다시 그리는 UI 프레임워크입니다.</span>
+        </div>
+        <div class="flow-node orange">
+          <b>MVVM</b>
+          <span>화면은 UI만, ViewModel은 상태와 이벤트 처리를 맡습니다.</span>
+        </div>
+        <div class="flow-node blue">
+          <b>Repository</b>
+          <span>지금은 Mock BLE, 나중에는 Native Android BLE API를 감싸는 경계입니다.</span>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>기술/도구</th>
+              <th>AIRS에서 하는 일</th>
+              <th>현재 구현 파일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Android Studio</td>
+              <td>프로젝트를 열고 Gradle Sync, Preview, Emulator 실행을 관리합니다.</td>
+              <td>IDE 도구</td>
+            </tr>
+            <tr>
+              <td>Gradle</td>
+              <td>Compose, Lifecycle, Kotlin 의존성을 연결하고 앱을 빌드합니다.</td>
+              <td><code>android/app/build.gradle.kts</code>, <code>libs.versions.toml</code></td>
+            </tr>
+            <tr>
+              <td>Kotlin</td>
+              <td>Java처럼 class와 function을 쓰지만, data class, val/var, lambda를 더 자주 씁니다.</td>
+              <td><code>ProvisioningModels.kt</code>, <code>ProvisioningViewModel.kt</code></td>
+            </tr>
+            <tr>
+              <td>Compose</td>
+              <td>XML 대신 Kotlin 함수로 UI를 만듭니다.</td>
+              <td><code>ProvisioningScreen.kt</code></td>
+            </tr>
+            <tr>
+              <td>MVVM</td>
+              <td>ViewModel이 상태를 들고 있고, 화면은 그 상태를 읽어서 그립니다.</td>
+              <td><code>ProvisioningViewModel.kt</code></td>
+            </tr>
+            <tr>
+              <td>Repository</td>
+              <td>BLE 통신 세부 구현을 화면과 분리합니다.</td>
+              <td><code>BleProvisioningRepository.kt</code>, <code>MockBleProvisioningRepository.kt</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>4. 앱 내부 아키텍처</h2>
+      <p class="muted">
+        앱 코드는 아래 방향으로 흐릅니다. 사용자가 버튼을 누르면 UI가 ViewModel 함수를 호출하고,
+        ViewModel은 Repository를 통해 mock BLE 동작을 실행한 뒤 상태를 바꿉니다. 상태가 바뀌면 Compose가 화면을 다시 그립니다.
+      </p>
+      <div class="app-flow">
+        <div class="flow-node blue">
+          <b>MainActivity</b>
+          <span>앱 시작점. Theme와 첫 화면을 띄웁니다.</span>
+        </div>
+        <div class="flow-node green">
+          <b>ProvisioningScreen</b>
+          <span>버튼, 입력창, 노드 목록을 그리는 Compose UI입니다.</span>
+        </div>
+        <div class="flow-node orange">
+          <b>ProvisioningViewModel</b>
+          <span>현재 단계, 노드 목록, SSID/PW, 성공/실패 상태를 관리합니다.</span>
+        </div>
+        <div class="flow-node purple">
+          <b>BleProvisioningRepository</b>
+          <span>scan, connect, provisionWifi 계약만 정의합니다.</span>
+        </div>
+        <div class="flow-node teal">
+          <b>Mock Repository</b>
+          <span>실기기 없이 가짜 노드와 성공/실패 흐름을 만들어냅니다.</span>
+        </div>
+      </div>
+      <pre><code>User click
+-> ProvisioningScreen callback
+-> ProvisioningViewModel function
+-> BleProvisioningRepository interface
+-> MockBleProvisioningRepository
+-> uiState changes
+-> Compose recomposes screen</code></pre>
+    </section>
+
+    <section class="section">
+      <h2>5. Kotlin 문법을 Java/C 기준으로 보기</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Kotlin</th>
+              <th>Java/C와 비교</th>
+              <th>AIRS 코드 예시</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>val</code></td>
+              <td>한 번 정하면 바꿀 수 없는 변수입니다. Java의 <code>final</code>에 가깝습니다.</td>
+              <td><code>val node = uiState.selectedNode</code></td>
+            </tr>
+            <tr>
+              <td><code>var</code></td>
+              <td>값을 다시 넣을 수 있는 변수입니다.</td>
+              <td><code>var uiState by mutableStateOf(...)</code></td>
+            </tr>
+            <tr>
+              <td><code>data class</code></td>
+              <td>값을 담는 DTO/struct에 가깝습니다. 생성자, equals, toString이 자동 생성됩니다.</td>
+              <td><code>data class AirsBleNode(...)</code></td>
+            </tr>
+            <tr>
+              <td><code>object</code></td>
+              <td>싱글턴 객체입니다. Java의 static utility class처럼 쓸 수 있습니다.</td>
+              <td><code>object WifiConfigPayload</code></td>
+            </tr>
+            <tr>
+              <td><code>Flow</code></td>
+              <td>시간에 따라 여러 값을 흘려보내는 stream입니다.</td>
+              <td>mock scan 결과와 provisioning status를 순서대로 emit합니다.</td>
+            </tr>
+            <tr>
+              <td><code>@Composable</code></td>
+              <td>Compose 화면 함수라는 표시입니다. XML layout 대신 Kotlin 함수가 UI가 됩니다.</td>
+              <td><code>@Composable fun ProvisioningScreen(...)</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>6. 핵심 코드 line-by-line 설명</h2>
+      <p class="muted">
+        모든 자동 생성 리소스까지 설명하면 초점이 흐려지므로, AIRS Wi-Fi provisioning 구현에 직접 필요한 파일만 설명합니다.
+      </p>
+
+      <h3>6.1 <code>MainActivity.kt</code></h3>
+      <div class="table-wrap">
+        <table class="code-line">
+          <thead>
+            <tr>
+              <th>줄</th>
+              <th>코드</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>package com.airs.android</td>
+              <td>이 파일이 <code>com.airs.android</code> 패키지에 속한다는 뜻입니다.</td>
+            </tr>
+            <tr>
+              <td>3-10</td>
+              <td>import ...</td>
+              <td>Activity, Compose, ViewModel, AIRS 화면/테마 클래스를 가져옵니다.</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>class MainActivity : ComponentActivity()</td>
+              <td>앱의 첫 Activity입니다. Java의 <code>extends ComponentActivity</code>와 같습니다.</td>
+            </tr>
+            <tr>
+              <td>13</td>
+              <td>private val provisioningViewModel by viewModels()</td>
+              <td>Activity 생명주기에 맞는 ViewModel을 하나 생성합니다. 화면 회전 같은 상황에서도 상태를 보존하기 좋습니다.</td>
+            </tr>
+            <tr>
+              <td>15</td>
+              <td>override fun onCreate(...)</td>
+              <td>Activity가 처음 만들어질 때 Android가 호출하는 함수입니다.</td>
+            </tr>
+            <tr>
+              <td>17</td>
+              <td>enableEdgeToEdge()</td>
+              <td>상태바/내비게이션바 영역까지 자연스럽게 그리도록 하는 Android UI 설정입니다.</td>
+            </tr>
+            <tr>
+              <td>18</td>
+              <td>setContent { ... }</td>
+              <td>XML layout 대신 Compose 화면을 Activity에 붙입니다.</td>
+            </tr>
+            <tr>
+              <td>19</td>
+              <td>AIRSTheme(dynamicColor = false)</td>
+              <td>AIRS 앱 공통 색상/타이포그래피 테마를 적용합니다.</td>
+            </tr>
+            <tr>
+              <td>20</td>
+              <td>ProvisioningRoute(viewModel = provisioningViewModel)</td>
+              <td>Wi-Fi provisioning 화면을 띄우고 ViewModel과 연결합니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.2 <code>ProvisioningModels.kt</code></h3>
+      <div class="table-wrap">
+        <table class="code-line">
+          <thead>
+            <tr>
+              <th>줄</th>
+              <th>코드</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>3-8</td>
+              <td>data class AirsBleNode(...)</td>
+              <td>앱이 발견한 AIRS BLE 노드 하나를 표현합니다. 이름, RSSI, firmware version을 담습니다.</td>
+            </tr>
+            <tr>
+              <td>10-13</td>
+              <td>data class WifiCredentials(...)</td>
+              <td>사용자가 입력한 SSID와 password를 묶어서 전달하기 위한 값 객체입니다.</td>
+            </tr>
+            <tr>
+              <td>15-24</td>
+              <td>enum class ProvisioningStep</td>
+              <td>현재 화면 단계입니다. 시작, 검색, 연결, Wi-Fi 입력, 전송, 성공, 실패로 나눕니다.</td>
+            </tr>
+            <tr>
+              <td>26-32</td>
+              <td>enum class ProvisioningStatusType(val label: String)</td>
+              <td>노드가 알려주는 진행 상태 종류입니다. 각 enum 값은 UI에 보여줄 한국어 label을 가집니다.</td>
+            </tr>
+            <tr>
+              <td>34-37</td>
+              <td>data class ProvisioningStatus(...)</td>
+              <td>상태 종류와 상세 메시지를 함께 담습니다.</td>
+            </tr>
+            <tr>
+              <td>39-50</td>
+              <td>data class ProvisioningUiState(...)</td>
+              <td>화면에 필요한 모든 상태를 한 곳에 모읍니다. Compose는 이 값을 보고 화면을 그립니다.</td>
+            </tr>
+            <tr>
+              <td>51-53</td>
+              <td>val canSendWifiConfig get() = ssid.isNotBlank()</td>
+              <td>SSID가 있을 때만 전송 버튼을 활성화하기 위한 계산 속성입니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.3 <code>BleProvisioningRepository.kt</code></h3>
+      <div class="table-wrap">
+        <table class="code-line">
+          <thead>
+            <tr>
+              <th>줄</th>
+              <th>코드</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>8</td>
+              <td>interface BleProvisioningRepository</td>
+              <td>BLE 기능의 계약입니다. UI/ViewModel은 실제 BLE인지 mock인지 몰라도 됩니다.</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>fun scanForNodes(): Flow&lt;List&lt;AirsBleNode&gt;&gt;</td>
+              <td>주변 노드를 검색하고, 검색 결과 목록을 stream으로 보냅니다.</td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>suspend fun connect(node: AirsBleNode)</td>
+              <td>선택한 노드에 연결합니다. <code>suspend</code>는 시간이 걸리는 비동기 함수라는 뜻입니다.</td>
+            </tr>
+            <tr>
+              <td>13-16</td>
+              <td>fun provisionWifi(...): Flow&lt;ProvisioningStatus&gt;</td>
+              <td>Wi-Fi 정보를 전달하고, 노드의 진행 상태를 순서대로 받습니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.4 <code>ProvisioningViewModel.kt</code></h3>
+      <div class="table-wrap">
+        <table class="code-line">
+          <thead>
+            <tr>
+              <th>줄</th>
+              <th>코드</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>19-21</td>
+              <td>class ProvisioningViewModel(...)</td>
+              <td>UI 상태와 사용자 이벤트를 처리하는 MVVM의 ViewModel입니다. 기본값으로 mock repository를 사용합니다.</td>
+            </tr>
+            <tr>
+              <td>22-23</td>
+              <td>var uiState by mutableStateOf(...)</td>
+              <td>Compose가 관찰할 상태입니다. 값이 바뀌면 화면이 다시 그려집니다.</td>
+            </tr>
+            <tr>
+              <td>25-26</td>
+              <td>private var scanJob / provisioningJob</td>
+              <td>진행 중인 coroutine 작업을 기억했다가 중복 실행을 취소하기 위한 변수입니다.</td>
+            </tr>
+            <tr>
+              <td>28-47</td>
+              <td>fun startScan()</td>
+              <td>검색 버튼을 눌렀을 때 실행됩니다. repository에서 mock 노드 목록을 받아 UI 상태에 넣습니다.</td>
+            </tr>
+            <tr>
+              <td>49-69</td>
+              <td>fun selectNode(node)</td>
+              <td>사용자가 노드를 선택하면 연결 중 상태로 바꾸고, 연결 성공 시 Wi-Fi 입력 단계로 이동합니다.</td>
+            </tr>
+            <tr>
+              <td>71-81</td>
+              <td>updateSsid / updatePassword / togglePasswordVisible</td>
+              <td>입력창 값과 비밀번호 표시 여부를 변경합니다.</td>
+            </tr>
+            <tr>
+              <td>83-129</td>
+              <td>fun sendWifiConfig()</td>
+              <td>SSID/PW를 검증하고, mock repository에 Wi-Fi 설정 전달을 요청합니다. 상태가 오면 성공/실패 화면으로 이동합니다.</td>
+            </tr>
+            <tr>
+              <td>131-146</td>
+              <td>retryFromStart / backToWifiInput</td>
+              <td>처음부터 다시 하거나 Wi-Fi 입력 단계로 돌아가기 위한 복구 함수입니다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>7. 현재 앱과 테스트에서 확인할 수 있는 흐름</h2>
+      <div class="checklist">
+        <div class="check">1. Android 휴대폰에서 앱을 실행하면 Bluetooth 권한 요청 화면이 먼저 표시됩니다.</div>
+        <div class="check">2. 권한을 허용하면 실제 BLE scan 화면으로 이동하고 <code>AIRS 노드 검색 시작</code>을 누를 수 있습니다.</div>
+        <div class="check">3. AIRS 노드가 없으면 timeout 후 실패 메시지를 확인합니다.</div>
+        <div class="check">4. AIRS 노드가 있으면 목록에서 노드를 선택하고 GATT 연결, Wi-Fi 입력, write, status notify 흐름을 확인합니다.</div>
+        <div class="check">5. mock repository 기반 단위 테스트로 성공/실패 상태 전환은 계속 자동 검증합니다.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>8. 휴대폰 기준 실제 실행 경로</h2>
+      <div class="split">
+        <div class="card">
+          <h3>테스트/학습 경로</h3>
+          <pre><code>BleProvisioningRepository
+-> MockBleProvisioningRepository
+-> 가짜 scan/connect/write/status</code></pre>
+        </div>
+        <div class="card">
+          <h3>실제 실행 경로</h3>
+          <pre><code>BleProvisioningRepository
+-> AndroidBleProvisioningRepository
+-> BluetoothLeScanner
+-> BluetoothGatt
+-> Characteristic write/notify</code></pre>
+        </div>
+      </div>
+      <div class="callout">
+        <b>중요:</b>
+        ViewModel과 화면은 <code>BleProvisioningRepository</code> 인터페이스에만 의존합니다.
+        그래서 mock 테스트와 실제 BLE 실행 경로가 같은 ViewModel/화면 구조를 공유합니다.
+      </div>
+    </section>
+  </main>
+</body>
+</html>
